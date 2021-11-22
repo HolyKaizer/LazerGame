@@ -1,7 +1,8 @@
+using Core.Input;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace Core.Input
+namespace Core.Controllers
 {
     internal sealed class InputController : BaseController 
     {

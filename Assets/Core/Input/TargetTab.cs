@@ -1,11 +1,11 @@
 using UnityEditor;
 
-namespace Core.Input.Core.Input
+namespace Core.Input
 {
     public class TargetTab
     {
-        public string Label;
-        public BuildTargetGroup TargetPlatform;
+        public string Label { get; }
+        public BuildTargetGroup TargetPlatform { get; }
 
         public TargetTab(string label, BuildTargetGroup targetPlatform)
         {

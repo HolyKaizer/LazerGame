@@ -1,4 +1,6 @@
-namespace Core
+using Core.Interfaces;
+
+namespace Core.Controllers
 {
     internal abstract class BaseController : IController
     {
