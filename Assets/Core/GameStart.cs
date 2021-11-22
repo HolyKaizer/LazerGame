@@ -1,29 +1,52 @@
-using Core.Input;
+using System;
+using System.Collections;
+using Core.Interfaces;
+using Core.Loading;
+using Core.Loading.Steps;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 namespace Core
 {
     public sealed class GameStart : MonoBehaviour
     {
-        [SerializeField] private InputActionAsset _actionsAsset;
-        private IController _inputController;
+        [SerializeField] private Main _main;
+
+        private IGameLoader _gameLoader;
+        private ISceneManager _sceneManager;
+        private ILoaderContext _loaderContext;
         
         private void Awake()
         {
-            DontDestroyOnLoad(this);
-
-            // GameLoader.LoadGame(this);
-            
-            var rotateViewModel = new RotateInputViewModel();
-            _inputController = new InputController(_actionsAsset.FindActionMap(Consts.Player), rotateViewModel);
-            
-            _inputController.Init();
+            var context = new LoaderContext();
+            _loaderContext = context;
+            _sceneManager = new LoadSceneManager();
+            _gameLoader = new GameLoader(context, _main);
         }
 
-        private void OnDestroy()
+        public void Start()
         {
-            _inputController.Dispose();
+            StartCoroutine(StartGame());
         }
+
+        private IEnumerator StartGame()
+        {            
+            _sceneManager.OnSceneLoaded += OnSceneLoaded;
+            yield return new WaitForEndOfFrame();
+            yield return StartCoroutine(_gameLoader.Load());
+            Debug.LogAssertion("StartCompleted");
+        }
+
+        private void OnSceneLoaded()
+        {
+        }
+    }
+
+    internal class LoadSceneManager : ISceneManager
+    {
+        public event Action OnSceneLoaded;
+        public event Action OnUnloadScene;
+        public bool SceneLoading { get; }
+        public bool IsGameReady { get; }
+        public double StartSwitchLevelTs { get; }
     }
 }

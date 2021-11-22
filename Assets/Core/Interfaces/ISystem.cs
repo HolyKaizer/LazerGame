@@ -1,4 +1,4 @@
-namespace Core
+namespace Core.Interfaces
 {
     internal interface ISystem
     {

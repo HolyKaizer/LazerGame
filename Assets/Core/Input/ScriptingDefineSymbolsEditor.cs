@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
-namespace Core.Input.Core.Input
+namespace Core.Input
 {
     internal static class HotKeysEditorMenu
     {
