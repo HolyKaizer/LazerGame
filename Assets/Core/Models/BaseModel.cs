@@ -5,10 +5,9 @@ using UnityEngine;
 
 namespace Core.Models
 {
-    public abstract class BaseModel<TConfig> : IModel where TConfig : TypedConfig
+    public abstract class BaseModel<TConfig> : IModel where TConfig : ScriptableObject
     {
         public string Id { get; }
-        
         protected TConfig Config { get; }
 
         protected BaseModel(string id, TConfig config)
@@ -25,7 +24,7 @@ namespace Core.Models
         {
             if (Config is T tConfig) return tConfig;
             
-            Debug.LogAssertion($"Config of \"{Id}\" model doesn't derived from \"{typeof(T)}\" type");
+            CustomLogger.LogAssertion($"Config of \"{Id}\" model doesn't derived from \"{typeof(T)}\" type");
             return default;
         }
     }

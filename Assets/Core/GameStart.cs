@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using Core.Interfaces;
 using Core.Loading;
-using Core.Loading.Steps;
 using UnityEngine;
 
 namespace Core
@@ -10,7 +9,8 @@ namespace Core
     public sealed class GameStart : MonoBehaviour
     {
         [SerializeField] private Main _main;
-
+        [SerializeField] private bool _isTest = true;
+        
         private IGameLoader _gameLoader;
         private ISceneManager _sceneManager;
         private ILoaderContext _loaderContext;
@@ -30,14 +30,12 @@ namespace Core
 
         private IEnumerator StartGame()
         {            
-            _sceneManager.OnSceneLoaded += OnSceneLoaded;
             yield return new WaitForEndOfFrame();
+            
             yield return StartCoroutine(_gameLoader.Load());
-            Debug.LogAssertion("StartCompleted");
-        }
 
-        private void OnSceneLoaded()
-        {
+            _main.Init(_loaderContext);
+            CustomLogger.LogAssertion("StartCompleted");
         }
     }
 

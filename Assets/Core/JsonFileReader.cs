@@ -3,11 +3,19 @@ using fastJSON;
 
 namespace Core
 {
-    internal class JsonFileReader
+    public class JsonFileReader
     {
         public void Save<T>(T data, string path = null)
         {
+            if(string.IsNullOrEmpty(path)) return;
+            
             var str = JSON.ToNiceJSON(data);
+            if (!File.Exists(path))
+            {
+                using (File.Create(path))
+                {
+                }
+            }
             File.WriteAllText(path, str);
         }
         

@@ -1,7 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
+using Core.Configs;
 using Core.Interfaces;
 using Core.Loading.Steps;
+using UnityEngine.AddressableAssets;
+using UnityEngine.SceneManagement;
 
 namespace Core.Loading
 {
@@ -10,9 +13,9 @@ namespace Core.Loading
         public bool IsComplete { get; private set; }
         
         private readonly LoaderContext _loaderContext;
-        private readonly List<IGameLoadStep> _loadingSteps = new List<IGameLoadStep>();
+        private readonly List<ILoadStep> _loadingSteps = new List<ILoadStep>();
         
-        public GameLoader(LoaderContext loaderContext, Main main)
+        public GameLoader(LoaderContext loaderContext, IMain main)
         {
             _loaderContext = loaderContext;
 
@@ -23,8 +26,14 @@ namespace Core.Loading
             _loadingSteps.Add(new ConfigsCreationStep(loaderContext, main));
             _loadingSteps.Add(new ModelCreationStep(loaderContext, main));
             _loadingSteps.Add(new ContentLoadingStep(loaderContext, main));
+#if LG_DEVELOP
+            if (!main.IsTest)
+            {
+                _loadingSteps.Add(new LoadGameplaySceneStep(loaderContext, main));
+            }
+#endif
             _loadingSteps.Add(new EntryControllerCreationStep(loaderContext, main));
-            
+
             _loaderContext.StepsCount = _loadingSteps.Count;
         }
 

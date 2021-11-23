@@ -5,7 +5,7 @@ using Core.Models;
 
 namespace Core.Loading
 {
-    internal interface ILoaderContext
+    public interface ILoaderContext
     {
         IDictionary<string,string> FilePaths { get; }
         ContentManager ContentManager { get; }

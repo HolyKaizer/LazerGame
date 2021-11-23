@@ -1,31 +1,47 @@
+using Core.Configs;
 using Core.Controllers;
 using Core.Input;
 using Core.Interfaces;
+using Core.Loading;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 namespace Core
 {
-    public sealed class Main : MonoBehaviour
+    public sealed class Main : MonoBehaviour, IMain
     {
-        [SerializeField] private InputActionAsset _actionsAsset;
+#if LG_DEVELOP
+        public bool IsTest => _isTest;
+        [SerializeField] private bool _isTest = true;
+#endif
+        public MainConfig MainConfig => _mainConfig;
+        public InputViewModel InputViewModel { get; } = new InputViewModel();
 
-        private IController _inputController;
+        [SerializeField] private MainConfig _mainConfig;
+        
+        private ILoaderContext _loaderContext;
+        private bool _inited;
 
         private void Awake()
         {
             DontDestroyOnLoad(this);
-
-            var rotateViewModel = new RotateInputViewModel();
-            _inputController = new InputController(_actionsAsset.FindActionMap(Consts.Player), rotateViewModel);
-            
-            _inputController.Init();
         }
         
+        public void Init(ILoaderContext loaderContext)
+        {
+            if(_inited) return;
+            _inited = true;
+            
+            _loaderContext = loaderContext;
+            
+            _loaderContext.EntryGameController.Init();
+        }
 
         private void OnDestroy()
         {
-            _inputController.Dispose();
+            _inited = false;
+            _loaderContext.EntryGameController.Dispose();
         }
+
     }
 }

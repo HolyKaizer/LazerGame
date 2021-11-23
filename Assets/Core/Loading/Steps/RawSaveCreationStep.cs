@@ -3,11 +3,11 @@ using System.Collections.Generic;
 
 namespace Core.Loading.Steps
 {
-    internal class RawSaveCreationStep : GameLoadStep
+    internal class RawSaveCreationStep : LoadStep
     {
         public override string StepId => "raw_save_creation_step";
         
-        public RawSaveCreationStep(LoaderContext context, Main main) : base(context, main)
+        public RawSaveCreationStep(LoaderContext context, IMain main) : base(context, main)
         {
         }
         

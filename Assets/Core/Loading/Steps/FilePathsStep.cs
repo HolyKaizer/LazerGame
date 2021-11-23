@@ -3,11 +3,11 @@ using System.Collections.Generic;
 
 namespace Core.Loading.Steps
 {
-    internal sealed class FilePathsStep : GameLoadStep
+    internal sealed class FilePathsStep : LoadStep
     {
         public override string StepId => "file_paths";
         
-        public FilePathsStep(LoaderContext context, Main main) : base(context, main)
+        public FilePathsStep(LoaderContext context, IMain main) : base(context, main)
         {
         }
 
@@ -15,7 +15,7 @@ namespace Core.Loading.Steps
         {
             _context.FilePaths = new Dictionary<string, string>()
             {
-                {"save", "Assets/Scripts/Save/save.json"},
+                {"save", "Assets/save.json"},
                 {"preload_atlas", "UI_Main_Atlas"}
             };
             

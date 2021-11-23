@@ -1,20 +1,18 @@
-using System;
 using System.Collections;
 using Core.Interfaces;
-using UnityEngine;
 
 namespace Core.Loading.Steps
 {
-    internal abstract class GameLoadStep : IGameLoadStep
+    internal abstract class LoadStep : ILoadStep
     {
         public bool IsCompleted { get; protected set; }
         
         public abstract string StepId { get; }
         
         protected readonly LoaderContext _context;
-        protected readonly Main _main;
+        protected readonly IMain _main;
 
-        protected GameLoadStep(LoaderContext context, Main main)
+        protected LoadStep(LoaderContext context, IMain main)
         {
             _context = context;
             _main = main;
@@ -22,10 +20,7 @@ namespace Core.Loading.Steps
 
         public IEnumerator Load()
         {
-#if LG_DEVELOP
-            Debug.Log($"Loading step=\"{StepId}\" started");
-#endif
-            
+            CustomLogger.Log($"Loading step=\"{StepId}\" started");
             yield return OnLoad();
         }
 

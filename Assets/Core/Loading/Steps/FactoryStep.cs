@@ -1,18 +1,19 @@
 using System.Collections;
+using Core.Factory;
 
 namespace Core.Loading.Steps
 {
-    internal sealed class FactoryStep : GameLoadStep
+    internal sealed class FactoryStep : LoadStep
     {
         public override string StepId => "factory_step";
         
-        public FactoryStep(LoaderContext context, Main main) : base(context, main)
+        public FactoryStep(LoaderContext context, IMain main) : base(context, main)
         {
         }
 
         protected override IEnumerator OnLoad()
         {
-            //TODO: create factory manager step
+            FactoryManager.Init();
             yield break;
         }
     }

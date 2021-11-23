@@ -2,7 +2,7 @@ using Core.Interfaces;
 
 namespace Core.Controllers
 {
-    internal abstract class BaseController : IController
+    public abstract class BaseController : IController
     {
         private bool _isInited;
         
