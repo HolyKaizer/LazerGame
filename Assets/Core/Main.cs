@@ -1,31 +1,17 @@
-using Core.Controllers;
-using Core.Input;
-using Core.Interfaces;
-using UnityEngine;
-using UnityEngine.InputSystem;
+using System.Collections;
+using Core.Models;
 
 namespace Core
 {
-    public sealed class Main : MonoBehaviour
+    public sealed class Main : MainBase
     {
-        [SerializeField] private InputActionAsset _actionsAsset;
-
-        private IController _inputController;
-
-        private void Awake()
+        protected override IEnumerator StartGameAsync()
         {
-            DontDestroyOnLoad(this);
-
-            var rotateViewModel = new RotateInputViewModel();
-            _inputController = new InputController(_actionsAsset.FindActionMap(Consts.Player), rotateViewModel);
+            yield return LoadGame();
             
-            _inputController.Init();
-        }
-        
-
-        private void OnDestroy()
-        {
-            _inputController.Dispose();
+            yield return SceneManager.LoadSceneModel((ISceneModel) LoaderContext.UserData.Models["main_scene"]);
+            
+            CustomLogger.LogAssertion("StartCompleted");
         }
     }
 }

@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Core.Input
 {
-    internal class RotateInputViewModel
+    public class RotateInputViewModel
     {
         public event Action<Vector2> RotateChanged;
         public event Action RotateEnded;

@@ -7,7 +7,7 @@ using UnityEngine.U2D;
 
 namespace Core
 {
-    internal sealed class ContentManager
+    public sealed class ContentManager
     {
         public event Action<int> SpriteLoaded; 
         
@@ -38,7 +38,7 @@ namespace Core
         {
             if (!_sprites.TryGetValue(spriteName, out var sprite))
             {
-                Debug.LogAssertion($"Sprite Named {spriteName} doesn't load via atlass");
+                CustomLogger.LogAssertion($"Sprite Named {spriteName} doesn't load via atlass");
             }
 
             return sprite;

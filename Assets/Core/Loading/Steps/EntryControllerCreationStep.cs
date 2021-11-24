@@ -3,9 +3,9 @@ using Core.Controllers;
 
 namespace Core.Loading.Steps
 {
-    internal class EntryControllerCreationStep : GameLoadStep
+    internal class EntryControllerCreationStep : LoadStep
     {
-        public EntryControllerCreationStep(LoaderContext context, Main main) : base(context, main)
+        public EntryControllerCreationStep(LoaderContext context, IMain main) : base(context, main)
         {
         }
 
@@ -14,8 +14,6 @@ namespace Core.Loading.Steps
         protected override IEnumerator OnLoad()
         {
             _context.EntryGameController = new EntryGameController(_context, _main);
-            _context.EntryGameController.Init();
-            
             _context.IsLoadDone = true;
             yield break;
         }

@@ -2,10 +2,10 @@ using System.Collections;
 
 namespace Core.Loading.Steps
 {
-    internal class JsonReaderStep : GameLoadStep
+    internal class JsonReaderStep : LoadStep
     {
         public override string StepId => "json_reader_step";
-        public JsonReaderStep(LoaderContext context, Main main) : base(context, main)
+        public JsonReaderStep(LoaderContext context, IMain main) : base(context, main)
         {
         }
         

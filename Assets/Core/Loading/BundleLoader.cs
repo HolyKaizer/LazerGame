@@ -65,9 +65,9 @@ namespace Core.Loading
                     if (_bundleHandler.IsValid() && _bundleHandler.OperationException != null)
                     {
                         var message = _bundleHandler.OperationException.Message;
-                        Debug.LogAssertion($"Bundle load exception: {_name}: {message}");
+                        CustomLogger.LogAssertion($"Bundle load exception: {_name}: {message}");
                     }
-                    else Debug.LogAssertion($"Bundle load fail: {_name}");
+                    else CustomLogger.LogAssertion($"Bundle load fail: {_name}");
                     
                     yield return null;
                 }

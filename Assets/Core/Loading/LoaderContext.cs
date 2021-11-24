@@ -12,7 +12,7 @@ namespace Core.Loading
         public IDictionary<string,string> FilePaths { get; set; }
         public JsonFileReader JsonFileReader { get; set; }
         public IDictionary<string,object> RawSaves { get; set; }
-        public MainConfig MainConfig { get; set; }
+        public IMainConfig MainConfig { get; set; }
         public bool IsLoadDone { get; set; }
         public UserData UserData { get; set; }
         public EntryGameController EntryGameController { get; set; }

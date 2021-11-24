@@ -2,7 +2,7 @@ using System.Collections;
 
 namespace Core.Interfaces
 {
-    internal interface IGameLoader
+    public interface IGameLoader
     {
         IEnumerator Load();
     }

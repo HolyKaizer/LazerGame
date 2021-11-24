@@ -1,11 +1,10 @@
 using System.Collections;
-using UnityEngine.AddressableAssets;
 
 namespace Core.Loading.Steps
 {
-    internal class ContentLoadingStep : GameLoadStep
+    internal class ContentLoadingStep : LoadStep
     {
-        public ContentLoadingStep(LoaderContext context, Main main) : base(context, main)
+        public ContentLoadingStep(LoaderContext context, IMain main) : base(context, main)
         {
         }
 
