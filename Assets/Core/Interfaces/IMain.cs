@@ -1,13 +1,14 @@
 using Core.Configs;
+using Core.Loading;
+using UnityEngine;
 
 namespace Core
 {
     public interface IMain
     {
-        MainConfig MainConfig { get; }
+        public MonoBehaviour MonoBehaviour { get; }
+        IMainConfig MainConfig { get; }
         InputViewModel InputViewModel { get; }
-#if LG_DEVELOP
-        bool IsTest { get; }
-#endif
+        ILoaderContext LoaderContext { get; }
     }
 }

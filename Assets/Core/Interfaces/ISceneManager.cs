@@ -1,13 +1,10 @@
-using System;
+using System.Collections;
+using Core.Models;
 
 namespace Core.Interfaces
 {
-    internal interface ISceneManager
+    public interface ISceneManager
     {
-        event Action OnSceneLoaded;
-        event Action OnUnloadScene;
-        bool SceneLoading { get;  }
-        bool IsGameReady { get;  } 
-        double StartSwitchLevelTs { get; }
+        IEnumerator LoadSceneModel(ISceneModel sceneModel);
     }
 }

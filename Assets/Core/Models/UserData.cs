@@ -6,11 +6,11 @@ using Core.UI;
 
 namespace Core.Models
 {
-    public sealed class UserData : BaseModel<MainConfig>
+    public sealed class UserData : BaseModel<IMainConfig>
     {
         public readonly IDictionary<string, IModel> Models = new Dictionary<string, IModel>();
         
-        public UserData(string id, MainConfig config) : base(id, config)
+        public UserData(string id, IMainConfig config) : base(id, config)
         {
             foreach (var startConfig in config.GetStartConfigs())
             {

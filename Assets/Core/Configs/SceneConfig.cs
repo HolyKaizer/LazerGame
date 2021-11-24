@@ -7,17 +7,14 @@ namespace Core.Configs
     public class SceneConfig : TypedConfig
     {
         public override string Id => _id;
-
-        [SerializeField] private string[] _tags;
-        [SerializeField] private string _id;
-        
+        public IEnumerable<string> ScenesToLoad => _scenesToLoad;
         public override string Type => "scene";
+        public string LogicId => _logicId;
+        public override IEnumerable<string> GetTags() => _tags;
         
-        public override IEnumerable<string> GetTags()
-        {
-            return _tags;
-        }
-
-        public List<string> ScenesToLoad;
+        [SerializeField] private string[] _tags;
+        [SerializeField] private string[] _scenesToLoad;
+        [SerializeField] private string _id;
+        [SerializeField] private string _logicId;
     }
 }

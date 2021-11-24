@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Core.Configs;
+using Core.Models;
 
 namespace Core.Interfaces
 {
@@ -8,6 +9,6 @@ namespace Core.Interfaces
         IDictionary<string, object> Serialize(IDictionary<string, object> rawData);
         void Deserialize(IDictionary<string, object> rawData);
 
-        T GetConfig<T>() where T : TypedConfig;
+        T GetConfig<T>() where T : IConfig;
     }
 }

@@ -26,12 +26,6 @@ namespace Core.Loading
             _loadingSteps.Add(new ConfigsCreationStep(loaderContext, main));
             _loadingSteps.Add(new ModelCreationStep(loaderContext, main));
             _loadingSteps.Add(new ContentLoadingStep(loaderContext, main));
-#if LG_DEVELOP
-            if (!main.IsTest)
-            {
-                _loadingSteps.Add(new LoadGameplaySceneStep(loaderContext, main));
-            }
-#endif
             _loadingSteps.Add(new EntryControllerCreationStep(loaderContext, main));
 
             _loaderContext.StepsCount = _loadingSteps.Count;

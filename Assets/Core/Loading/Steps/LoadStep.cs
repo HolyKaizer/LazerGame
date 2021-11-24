@@ -5,8 +5,6 @@ namespace Core.Loading.Steps
 {
     internal abstract class LoadStep : ILoadStep
     {
-        public bool IsCompleted { get; protected set; }
-        
         public abstract string StepId { get; }
         
         protected readonly LoaderContext _context;

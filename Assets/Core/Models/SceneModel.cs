@@ -1,9 +1,10 @@
 using System.Collections.Generic;
 using Core.Configs;
+using Core.Models.SceneLogic;
 
 namespace Core.Models
 {
-    public sealed class SceneModel : BaseModel<SceneConfig>
+    public sealed class SceneModel : BaseModel<SceneConfig>, ISceneModel
     {
         public SceneModel(string id, SceneConfig config) : base(id, config)
         {
@@ -13,6 +14,12 @@ namespace Core.Models
 
         public override void Deserialize(IDictionary<string, object> rawData)
         {
+        }
+
+        public void InvokeStartLogic(IMain main)
+        {
+            var logic = Factory.FactoryManager.Factory.Build<ISceneLogic>(Config.LogicId, main);
+            logic.InvokeLogic();
         }
     }
 }

@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _tags:
   - start
-  _id: main_scene
-  ScenesToLoad:
+  _scenesToLoad:
   - scenes_TestScene
+  _id: main_scene
+  _logicId: 

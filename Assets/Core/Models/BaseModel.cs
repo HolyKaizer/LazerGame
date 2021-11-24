@@ -1,11 +1,9 @@
 using System.Collections.Generic;
-using Core.Configs;
 using Core.Interfaces;
-using UnityEngine;
 
 namespace Core.Models
 {
-    public abstract class BaseModel<TConfig> : IModel where TConfig : ScriptableObject
+    public abstract class BaseModel<TConfig> : IModel where TConfig : IConfig
     {
         public string Id { get; }
         protected TConfig Config { get; }
@@ -20,7 +18,7 @@ namespace Core.Models
 
         public abstract void Deserialize(IDictionary<string, object> rawData);
         
-        public T GetConfig<T>() where T : TypedConfig
+        public T GetConfig<T>() where T : IConfig
         {
             if (Config is T tConfig) return tConfig;
             
