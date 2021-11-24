@@ -1,6 +1,7 @@
 using Core.Configs;
 using Core.Interfaces;
 using Core.Models;
+using Core.Models.SceneLogic;
 using Core.UI;
 
 namespace Core.Factory
@@ -13,6 +14,13 @@ namespace Core.Factory
         {
             Factory = new FactoryBuilder();
             RegisterModels();
+            RegisterSceneLogics();
+        }
+
+        private static void RegisterSceneLogics()
+        {
+            Factory.AddVariantFunc<ISceneLogic>("", objects => new EmptySceneLogic(objects.GetValue<IMain>(0)));
+            Factory.AddVariantFunc<ISceneLogic>("start_scene_logic", objects => new StartGameSceneLogic(objects.GetValue<IMain>(0)));
         }
 
         private static void RegisterModels()

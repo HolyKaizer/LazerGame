@@ -4,6 +4,7 @@ namespace Core.Configs
 {
     public interface ISceneConfig : ITypedConfig
     {
-        public IEnumerable<string> ScenesToLoad { get; }
+        public IList<string> ScenesToLoad { get; }
+        string LogicId { get; }
     }
 }

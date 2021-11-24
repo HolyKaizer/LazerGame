@@ -1,6 +1,5 @@
 using System.Collections;
-using Core.Configs;
-using Core.Loading;
+using Core.Models;
 
 namespace Core
 {
@@ -10,10 +9,8 @@ namespace Core
         {
             yield return LoadGame();
             
-            var sceneModel = LoaderContext.UserData.Models["main_scene"];
+            yield return SceneManager.LoadSceneModel((ISceneModel) LoaderContext.UserData.Models["main_scene"]);
             
-            yield return SceneLoader.LoadScenes(sceneModel.GetConfig<SceneConfig>().ScenesToLoad);
-
             CustomLogger.LogAssertion("StartCompleted");
         }
     }

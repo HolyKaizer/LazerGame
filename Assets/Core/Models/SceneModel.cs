@@ -4,9 +4,9 @@ using Core.Models.SceneLogic;
 
 namespace Core.Models
 {
-    public sealed class SceneModel : BaseModel<SceneConfig>, ISceneModel
+    public sealed class SceneModel : BaseModel<ISceneConfig>, ISceneModel
     {
-        public SceneModel(string id, SceneConfig config) : base(id, config)
+        public SceneModel(string id, ISceneConfig config) : base(id, config)
         {
         }
 

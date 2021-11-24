@@ -10,11 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3f3c18b983134f838ab97435c3f6762c, type: 3}
-  m_Name: StartSceneConfig
+  m_Name: TestSceneConfig
   m_EditorClassIdentifier: 
   _tags:
   - start
-  _scenesToLoad:
-  - scenes_TestScene
+  _scenesToLoad: []
   _id: main_scene
-  _logicId: start_scene_logic
+  _logicId: 

@@ -9,12 +9,12 @@ using UnityEngine.SceneManagement;
 
 namespace Core.Loading
 {
-    public static class SceneLoader
+    public class SceneLoader
     {
-        private static readonly IDictionary<string, AsyncOperationHandle<SceneInstance>> _loaders = new Dictionary<string, AsyncOperationHandle<SceneInstance>>();
-        private static readonly WaitForEndOfFrame _nextFrame = new WaitForEndOfFrame();
+        private readonly IDictionary<string, AsyncOperationHandle<SceneInstance>> _loaders = new Dictionary<string, AsyncOperationHandle<SceneInstance>>();
+        private readonly WaitForEndOfFrame _nextFrame = new WaitForEndOfFrame();
         
-        public static IEnumerator LoadScenes(IEnumerable<string> sceneNames)
+        public IEnumerator LoadScenes(IEnumerable<string> sceneNames)
         {
             foreach (var sceneName in sceneNames)
             {
@@ -32,7 +32,7 @@ namespace Core.Loading
             }
         }
         
-        public static IEnumerator UnloadScenes(IEnumerable<string> sceneNames)
+        public IEnumerator UnloadScenes(IEnumerable<string> sceneNames)
         {
             foreach (var sceneName in sceneNames)
             {
@@ -42,6 +42,18 @@ namespace Core.Loading
                     yield return Addressables.UnloadSceneAsync(sceneHandler);
                     CustomLogger.Log($"Scene {sceneName} is unloaded");
                 }
+            }
+        }
+
+        public async void LoadScenesAsync(IEnumerable<string> sceneNames)
+        {
+            foreach (var sceneName in sceneNames)
+            {
+                var loadScene = Addressables.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
+                _loaders[sceneName] = loadScene;
+
+                await loadScene.Task;
+                CustomLogger.Log($"Scene {sceneName} is loaded");
             }
         }
     }

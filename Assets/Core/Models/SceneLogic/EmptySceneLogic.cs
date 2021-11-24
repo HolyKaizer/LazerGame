@@ -1,8 +1,8 @@
 namespace Core.Models.SceneLogic
 {
-    public sealed class StartGameSceneLogic : BaseSceneLogic
+    public sealed class EmptySceneLogic : BaseSceneLogic
     {
-        public StartGameSceneLogic(IMain main) : base(main)
+        public EmptySceneLogic(IMain main) : base(main)
         {
         }
 

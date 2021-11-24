@@ -20,31 +20,16 @@ namespace Core
 
         private void Awake()
         {
-            if (CheckOnlyOneMain())
-            {
-                DontDestroyOnLoad(this);
-                SceneManager = new LoadSceneManager(this);
-                var context = new LoaderContext();
-                LoaderContext = context;
-                _gameLoader = new GameLoader(context, this);
-            }
-        }
-
-        private bool CheckOnlyOneMain()
-        {
-            return FindObjectsOfType<MainBase>().Length <= 1;
+            DontDestroyOnLoad(this);
+            SceneManager = new LoadSceneManager(this);
+            var context = new LoaderContext();
+            LoaderContext = context;
+            _gameLoader = new GameLoader(context, this);
         }
 
         private void Start()
         {
-            if (CheckOnlyOneMain())
-            {
-                StartCoroutine(StartGameAsync());
-            }
-            else
-            {
-                DestroyImmediate(this);
-            }
+            StartCoroutine(StartGameAsync());
         }
         
         protected abstract IEnumerator StartGameAsync();
