@@ -1,8 +1,8 @@
 using System.Collections.Generic;
-using Core.Models;
+using Core.Configs;
 using UnityEngine.InputSystem;
 
-namespace Core.Configs
+namespace Core.Interfaces
 {
     public interface IMainConfig : IConfig
     {

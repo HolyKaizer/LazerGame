@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace Core.Configs
+namespace Core.Interfaces
 {
     public interface ISceneConfig : ITypedConfig
     {

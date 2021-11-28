@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Core.Interfaces;
 using Core.Models;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -54,16 +55,5 @@ namespace Core.Configs
     {
         public string Id;
         public TypedConfig Config;
-    }
-
-    public abstract class NamedConfig : ScriptableObject, INamedConfig
-    {
-        public abstract string Id { get; }
-        public abstract IEnumerable<string> GetTags();
-    }
-
-    public abstract class TypedConfig : NamedConfig, ITypedConfig
-    {
-        public abstract string Type { get; }
     }
 }

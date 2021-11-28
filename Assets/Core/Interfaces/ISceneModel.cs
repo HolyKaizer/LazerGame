@@ -1,6 +1,4 @@
-using Core.Interfaces;
-
-namespace Core.Models
+namespace Core.Interfaces
 {
     public interface ISceneModel : IModel
     {

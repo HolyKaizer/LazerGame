@@ -1,4 +1,4 @@
-namespace Core.Configs
+namespace Core.Interfaces
 {
     public interface ITypedConfig : INamedConfig
     {

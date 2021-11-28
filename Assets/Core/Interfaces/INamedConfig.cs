@@ -1,6 +1,4 @@
-using Core.Models;
-
-namespace Core.Configs
+namespace Core.Interfaces
 {
     public interface INamedConfig : IConfig
     {

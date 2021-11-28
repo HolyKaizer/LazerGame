@@ -1,8 +1,7 @@
-using Core.Configs;
 using Core.Loading;
 using UnityEngine;
 
-namespace Core
+namespace Core.Interfaces
 {
     public interface IMain
     {

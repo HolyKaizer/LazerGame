@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Core.Configs;
+using Core.Interfaces;
 using Core.Models.SceneLogic;
 
 namespace Core.Models

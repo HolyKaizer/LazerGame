@@ -20,7 +20,7 @@ namespace Core
 
         private void Awake()
         {
-            DontDestroyOnLoad(this);
+            DontDestroyOnLoad(gameObject);
             SceneManager = new LoadSceneManager(this);
             var context = new LoaderContext();
             LoaderContext = context;

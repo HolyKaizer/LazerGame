@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace Core.Models
+namespace Core.Interfaces
 {
     public interface IConfig
     {
