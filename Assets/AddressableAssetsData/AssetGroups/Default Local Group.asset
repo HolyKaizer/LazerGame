@@ -25,6 +25,10 @@ MonoBehaviour:
     m_Address: scenes_TestScene
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: a82d1ae02301b48f4b0c089998697014
+    m_Address: prefab_TestLvlGrid
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: bce6376dfab3d0e4f88400b4e421cf0f, type: 2}
   m_SchemaSet:
