@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d554226e99a54eea840147394d03da8b, type: 3}
+  m_Name: LocationConfig
+  m_EditorClassIdentifier: 
+  _id: test_location
+  _tags:
+  - start
+  - has_controller
+  _locationObjectConfigs:
+  - {fileID: 11400000, guid: 187b60a45d8249c4dbbdea63ea860301, type: 2}
+  - {fileID: 11400000, guid: e0b4b3c6f7dbf5449a78016298ad089d, type: 2}
+  _locationCharacters: []
+  _addressablePrefabId: prefab_StartLocation
+  _locationTrajectoryConfig: {fileID: 0}
