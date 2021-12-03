@@ -1,11 +1,11 @@
 {
-   "test_level" : {
+   "test_location" : {
       "current_state" : 0,
       "location_objects" : {
-         "Test2" : {
+         "1" : {
             "current_state" : 0
          },
-         "test" : {
+         "2" : {
             "current_state" : 0
          }
       }

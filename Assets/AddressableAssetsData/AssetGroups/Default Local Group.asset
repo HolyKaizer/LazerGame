@@ -18,15 +18,15 @@ MonoBehaviour:
   m_GUID: f89f392c9e598a64e952cf87abd9dabc
   m_SerializeEntries:
   - m_GUID: 4c2bee224a9c3b7418dbd7a97654e68b
-    m_Address: UI_Main_Atlas
+    m_Address: textures_MainAtlas
     m_ReadOnly: 0
     m_SerializedLabels: []
   - m_GUID: 7e401ca46e346a142993c40e7472a09d
     m_Address: scenes_TestScene
     m_ReadOnly: 0
     m_SerializedLabels: []
-  - m_GUID: a82d1ae02301b48f4b0c089998697014
-    m_Address: prefab_TestLvlGrid
+  - m_GUID: 3dea9d565ba8af146afdc66d8b92f353
+    m_Address: prefab_TouchPanel
     m_ReadOnly: 0
     m_SerializedLabels: []
   m_ReadOnly: 0

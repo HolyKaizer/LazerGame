@@ -1,4 +1,4 @@
-using Core.Loading;
+using Core.Interfaces.Configs;
 using UnityEngine;
 
 namespace Core.Interfaces
@@ -7,7 +7,9 @@ namespace Core.Interfaces
     {
         public MonoBehaviour MonoBehaviour { get; }
         IMainConfig MainConfig { get; }
-        InputViewModel InputViewModel { get; }
+        IInputViewModel InputViewModel { get; }
+        ILoadSceneManager LoadSceneManager { get; }
         ILoaderContext LoaderContext { get; }
+        IMainSceneContainer MainSceneContainer { get; }
     }
 }

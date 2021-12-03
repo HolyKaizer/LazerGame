@@ -1,29 +1,24 @@
 using System;
 using System.Collections.Generic;
+using Core.Extensions;
 using Core.Interfaces;
-using Core.UI;
+using Core.Interfaces.Configs;
+using Core.Structs;
 
 
 namespace Core.Models 
 {
-    public enum LocationObjectState 
-    {
-        Destroyed,
-        Damaged,
-        Common
-    }
-
     public abstract class LocationObjectModel : BaseModel<ILocationObjectConfig>, ILocationObjectModel 
     {
         public LocationObjectState CurrentState { get; private set; }
-        public event Action<LocationObjectState, LocationObjectModel> ChangedState;
-        public event Action<LocationObjectModel> ObjectDestroyed;
+        public event Action<LocationObjectState, ILocationObjectModel> ChangedState;
+        public event Action<ILocationObjectModel> ObjectDestroyed;
 
         protected LocationObjectModel(string id, ILocationObjectConfig config) : base(id, config)
         {
         }
 
-        public override IDictionary<string, object> Serialize(IDictionary<string, object> rawData)
+        public override IDictionary<string, object> Save(IDictionary<string, object> rawData)
         {
             var data = new Dictionary<string, object>(1)
             {
@@ -33,7 +28,7 @@ namespace Core.Models
             return rawData;
         }
 
-        public override void Deserialize(IDictionary<string, object> rawData)
+        public override void Load(IDictionary<string, object> rawData)
         {
             CurrentState = (LocationObjectState) rawData.GetInt(Consts.CurrentState);
         }

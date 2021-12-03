@@ -2,7 +2,7 @@ using System;
 
 namespace Core.Interfaces
 {
-    internal interface IController : IDisposable
+    public interface IController : IDisposable
     {
         void Init();
     }

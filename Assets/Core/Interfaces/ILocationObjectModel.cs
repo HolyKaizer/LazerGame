@@ -1,11 +1,12 @@
 using System;
-using Core.Models;
+using Core.Interfaces.Models;
+using Core.Structs;
 
 namespace Core.Interfaces {
     public interface ILocationObjectModel : IModel
     {
         LocationObjectState CurrentState { get; }
-        event Action<LocationObjectState, LocationObjectModel> ChangedState;
-        event Action<LocationObjectModel> ObjectDestroyed;
+        event Action<LocationObjectState, ILocationObjectModel> ChangedState;
+        event Action<ILocationObjectModel> ObjectDestroyed;
     }
 }

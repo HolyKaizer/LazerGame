@@ -1,4 +1,4 @@
-using Core.Interfaces;
+using Core.Interfaces.Configs;
 
 namespace Core.Configs {
     public abstract class TypedConfig : NamedConfig, ITypedConfig

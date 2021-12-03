@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using Core.Interfaces;
+using Core.Interfaces.Configs;
 using UnityEngine;
 
 namespace Core.Configs {
@@ -7,7 +7,8 @@ namespace Core.Configs {
     {
         [SerializeField] private string _id;
         [SerializeField] private List<string> _tags;
+        private HashSet<string> _tagSet;
         public string Id => _id;
-        public IEnumerable<string> GetTags() => _tags;
+        public HashSet<string> GetTags() => _tagSet ??= new HashSet<string>(_tags);
     }
 }

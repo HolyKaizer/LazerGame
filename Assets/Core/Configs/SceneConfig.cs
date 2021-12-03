@@ -1,5 +1,7 @@
 using System.Collections.Generic;
+using Core.Extensions;
 using Core.Interfaces;
+using Core.Interfaces.Configs;
 using UnityEngine;
 
 namespace Core.Configs

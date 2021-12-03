@@ -1,21 +1,19 @@
 using System.Collections.Generic;
-using Core.Configs;
-using Core.Controllers;
 using Core.Interfaces;
-using Core.Models;
+using Core.Interfaces.Configs;
 
 namespace Core.Loading
 {
-    internal sealed class LoaderContext : ILoaderContext
+    public sealed class LoaderContext : ILoaderContext
     {
         public int StepsCount { get; set; }
-        public ContentManager ContentManager { get; set; }
+        public IContentManager ContentManager { get; set; }
         public IDictionary<string,string> FilePaths { get; set; }
-        public JsonFileReader JsonFileReader { get; set; }
+        public IJsonFileReader JsonFileReader { get; set; }
         public IDictionary<string,object> RawSaves { get; set; }
         public IMainConfig MainConfig { get; set; }
         public bool IsLoadDone { get; set; }
-        public UserData UserData { get; set; }
-        public EntryGameController EntryGameController { get; set; }
+        public IUserData UserData { get; set; }
+        public IController EntryGameController { get; set; }
     }
 }

@@ -1,37 +1,39 @@
 using System.Collections.Generic;
 using Core.Configs;
+using Core.Extensions;
 using Core.Factory;
 using Core.Interfaces;
-using Core.UI;
+using Core.Interfaces.Configs;
+using Core.Interfaces.Models;
 
 namespace Core.Models
 {
-    public sealed class UserData : BaseModel<IMainConfig>
+    public sealed class UserData : BaseModel<IMainConfig>, IUserData
     {
-        public readonly IDictionary<string, IModel> Models = new Dictionary<string, IModel>();
+        public IDictionary<string, IModel> Models { get; } = new Dictionary<string, IModel>();
         
         public UserData(string id, IMainConfig config) : base(id, config)
         {
             foreach (var startConfig in config.GetStartConfigs())
             {
-                Models.Add(startConfig.Id, FactoryManager.Factory.Build<IModel>(startConfig.Type, startConfig.Id, startConfig));
+                Models.Add(startConfig.Id, ModelFactoryManager.Factory.Build<IModel>(startConfig.Type, startConfig.Id, startConfig));
             }
         }
 
-        public override IDictionary<string, object> Serialize(IDictionary<string, object> rawData)
+        public override IDictionary<string, object> Save(IDictionary<string, object> rawData)
         {
             foreach (var model in Models.Values)
             {
-                model.Serialize(rawData);
+                model.Save(rawData);
             }
             return rawData;
         }
 
-        public override void Deserialize(IDictionary<string, object> rawData)
+        public override void Load(IDictionary<string, object> rawData)
         {
             foreach (var kvp in Models)
             {
-                kvp.Value.Deserialize(rawData.TryGetNode(kvp.Key));
+                kvp.Value.Load(rawData.TryGetNode(kvp.Key));
             }
         }
     }

@@ -1,7 +1,9 @@
-using Core.Models;
+using Core.Interfaces.Models;
+using Core.Structs;
 
 namespace Core.Interfaces {
-    public interface ILocationModel {
+    public interface ILocationModel : IModel
+    {
         LocationState CurrentState { get; }
     }
 }

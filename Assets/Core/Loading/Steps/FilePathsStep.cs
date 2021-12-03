@@ -17,7 +17,7 @@ namespace Core.Loading.Steps
             _context.FilePaths = new Dictionary<string, string>()
             {
                 {"save", "Assets/save.json"},
-                {"preload_atlas", "UI_Main_Atlas"}
+                {"preload_atlas", "textures_MainAtlas"}
             };
             
             yield break;

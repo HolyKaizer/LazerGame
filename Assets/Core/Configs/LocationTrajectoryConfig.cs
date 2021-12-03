@@ -1,4 +1,5 @@
-using Core.Interfaces;
+using Core.Extensions;
+using Core.Interfaces.Configs;
 
 namespace Core.Configs {
     public class LocationTrajectoryConfig : TypedConfig, ILocationTrajectoryConfig {

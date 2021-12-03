@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0fd2e16ade94e17a9e8041c685b6115, type: 3}
   m_Name: Test
   m_EditorClassIdentifier: 
-  _id: 
+  _id: 1
   _tags: []

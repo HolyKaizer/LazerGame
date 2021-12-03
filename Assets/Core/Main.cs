@@ -1,18 +1,64 @@
 using System.Collections;
+using Core.Configs;
+using Core.Extensions;
 using Core.Interfaces;
-using Core.Models;
+using Core.Interfaces.Configs;
+using Core.Loading;
+using Core.Management;
+using UnityEngine;
 
 namespace Core
 {
-    public sealed class Main : MainBase
+    public sealed class Main : MonoBehaviour, IMain
     {
-        protected override IEnumerator StartGameAsync()
+        public MonoBehaviour MonoBehaviour => this;
+        public IMainConfig MainConfig => _mainConfig;
+        public IInputViewModel InputViewModel { get; } = new InputViewModel();
+        public ILoaderContext LoaderContext { get; private set; }
+        public ILoadSceneManager LoadSceneManager { get; private set; }
+        public IMainSceneContainer MainSceneContainer { get; private set; }
+
+        [SerializeField] private MainConfig _mainConfig;
+
+        private IGameLoader _gameLoader;
+
+        private void Awake()
         {
-            yield return LoadGame();
+            DontDestroyOnLoad(gameObject);
             
-            yield return SceneManager.LoadSceneModel((ISceneModel) LoaderContext.UserData.Models["main_scene"]);
+            FactoryManager.Init();
             
+            LoadSceneManager = new LoadSceneManager(this);
+            var context = new LoaderContext();
+            LoaderContext = context;
+            _gameLoader = new GameLoader(context, this);
+        }
+
+        private void Start()
+        {
+            StartCoroutine(StartGameAsync());
+        }
+        
+        private IEnumerator StartGameAsync()
+        {
+            yield return StartCoroutine(_gameLoader.Load());
+            
+            yield return new WaitForEndOfFrame();
+
+            yield return LoadSceneManager.LoadSceneModel((ISceneModel) LoaderContext.UserData.Models["main_scene"]);
+            
+            yield return new WaitForEndOfFrame();
+            
+            MainSceneContainer = FindObjectOfType<MainSceneContainer>();
+
+            LoaderContext?.EntryGameController?.Init();
+
             CustomLogger.LogAssertion("StartCompleted");
+        }
+        
+        private void OnDestroy()
+        {
+            LoaderContext?.EntryGameController?.Dispose();
         }
     }
 }
