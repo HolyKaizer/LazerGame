@@ -1,9 +1,10 @@
 using System;
+using Core.Interfaces;
 using UnityEngine;
 
 namespace Core.Input
 {
-    public class RotateInputViewModel
+    public class RotateInputViewModel : IRotateInputViewModel
     {
         public event Action<Vector2> RotateChanged;
         public event Action RotateEnded;

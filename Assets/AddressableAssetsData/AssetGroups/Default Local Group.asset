@@ -18,15 +18,55 @@ MonoBehaviour:
   m_GUID: f89f392c9e598a64e952cf87abd9dabc
   m_SerializeEntries:
   - m_GUID: 4c2bee224a9c3b7418dbd7a97654e68b
-    m_Address: UI_Main_Atlas
+    m_Address: textures_MainAtlas
     m_ReadOnly: 0
     m_SerializedLabels: []
   - m_GUID: 7e401ca46e346a142993c40e7472a09d
     m_Address: scenes_TestScene
     m_ReadOnly: 0
     m_SerializedLabels: []
-  - m_GUID: a82d1ae02301b48f4b0c089998697014
-    m_Address: prefab_TestLvlGrid
+  - m_GUID: 3dea9d565ba8af146afdc66d8b92f353
+    m_Address: prefab_TouchPanel
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 660be7ec764be4e89b27597e228485e7
+    m_Address: textures_TestLocation
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 2a5ab99f692024be382d5d5d235cd02d
+    m_Address: texture_CharacterRunning
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 06a38b2a9d5af41c98a864e9503ae7c9
+    m_Address: textures_CharacterIdle
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 740afd3ad75bf4d68b9fb414eb7839f2
+    m_Address: texture_EnemyMelee
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 2dd124ede784d40a1a5d605a22b3742d
+    m_Address: textures_EnemyRange
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: de30100321ff341a39f5300bda960894
+    m_Address: textures_EnemyShild
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: f6cf5135034ec4ce6b562e408a64b047
+    m_Address: textures_EnemyHostage
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: cb2148e90941845daa0d5ddd61d3875c
+    m_Address: prefab_StartLocation
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 6b02370402605154ca7f70c72fe22e69
+    m_Address: prefab_EnemyHostage
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 8d56164fdfaf029499069fdd8a0b728d
+    m_Address: prefab_EnemyMelee
     m_ReadOnly: 0
     m_SerializedLabels: []
   m_ReadOnly: 0

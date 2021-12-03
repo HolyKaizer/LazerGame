@@ -1,3 +1,5 @@
+using Core.Interfaces;
+
 namespace Core.Models.SceneLogic
 {
     public sealed class EmptySceneLogic : BaseSceneLogic

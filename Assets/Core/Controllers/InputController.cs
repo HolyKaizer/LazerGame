@@ -1,4 +1,4 @@
-using Core.Input;
+using Core.Interfaces;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -7,10 +7,10 @@ namespace Core.Controllers
     internal sealed class InputController : BaseController 
     {
         private readonly InputActionMap _playerActions; 
-        private readonly RotateInputViewModel _viewModel;
+        private readonly IRotateInputViewModel _viewModel;
         private const string RotateActionId = "Move";
 
-        public InputController(InputActionMap actionMap, RotateInputViewModel viewModel)
+        public InputController(InputActionMap actionMap, IRotateInputViewModel viewModel)
         {
             _playerActions = actionMap;
             _viewModel = viewModel;

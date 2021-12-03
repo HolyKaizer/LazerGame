@@ -1,4 +1,7 @@
 using System.Collections.Generic;
+using Core.Extensions;
+using Core.Interfaces;
+using Core.Interfaces.Configs;
 using UnityEngine;
 
 namespace Core.Configs
@@ -6,15 +9,11 @@ namespace Core.Configs
     [CreateAssetMenu(menuName = "EndlessSoftware/SceneConfig", fileName = "SceneConfig")]
     public class SceneConfig : TypedConfig, ISceneConfig
     {
-        public override string Id => _id;
         public IList<string> ScenesToLoad => _scenesToLoad;
-        public override string Type => "scene";
+        public override string Type => Consts.Scene;
         public string LogicId => _logicId;
-        public override IEnumerable<string> GetTags() => _tags;
         
-        [SerializeField] private string[] _tags;
         [SerializeField] private string[] _scenesToLoad;
-        [SerializeField] private string _id;
         [SerializeField] private string _logicId;
     }
 }

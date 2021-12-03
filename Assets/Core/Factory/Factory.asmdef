@@ -1,0 +1,16 @@
+{
+    "name": "Factory",
+    "rootNamespace": "",
+    "references": [
+        "GUID:1eb3ea8a910103e4bb8d88e46f83c842"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

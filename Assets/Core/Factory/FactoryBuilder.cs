@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace Core.Factory
 {
@@ -55,19 +56,19 @@ namespace Core.Factory
 
         private T BuildItem<T>(string key, object[] param, Dictionary<string, Func<object[], object>> variantBuilder)
         {
-#if LDOE_DEVELOP
+#if LG_DEVELOP
             try
             {
                 if (!variantBuilder.TryGetValue(key, out var constructor))
                 {
-                    constructor = variantBuilder[Consts.DefaultVariant];
+                    constructor = variantBuilder["Consts.DefaultVariant"];
                 }
 
                 return (T) constructor.Invoke(param);
             }
             catch (Exception ex)
             {
-                Debug.LogError("key " + key + " ex " + ex);
+                Debug.LogAssertion("key " + key + " ex " + ex);
                 throw ex;
             }
 #else

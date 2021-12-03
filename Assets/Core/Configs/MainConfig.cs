@@ -1,7 +1,7 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using Core.Models;
+using Core.Extensions;
+using Core.Interfaces.Configs;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -13,10 +13,10 @@ namespace Core.Configs
         public InputActionAsset ActionAsset => _actionsAsset;
         [SerializeField] private InputActionAsset _actionsAsset;
         
-        [SerializeField] private List<ConfigInfo> _configInfos;
+        [SerializeField] private List<TypedConfig> _configInfos;
         private IDictionary<string, TypedConfig> _configsDict;
         
-        public IEnumerable<string> GetTags() => new[] {"main"};
+        public HashSet<string> GetTags() => new HashSet<string>{"main"};
 
         public void OnAfterDeserialize()
         {
@@ -25,13 +25,16 @@ namespace Core.Configs
             _configsDict = new Dictionary<string, TypedConfig>(_configInfos.Capacity);
             foreach (var info in _configInfos)
             {
-                _configsDict[info.Id] = info.Config;
+                if (!string.IsNullOrEmpty(info.Id))
+                {
+                    _configsDict[info.Id] = info;
+                }
             }
         }
         
-        public IEnumerable<TypedConfig> GetStartConfigs()
+        public IEnumerable<ITypedConfig> GetStartConfigs()
         {
-            return _configsDict.Values.Where(c => c.GetTags().Contains(Consts.StartTag));
+            return _configInfos.Where(c => c.GetTags().Contains(Consts.Start));
         }
         
         public TConfig GetConfig<TConfig>(string id) where TConfig : IConfig
@@ -47,23 +50,5 @@ namespace Core.Configs
         }
         
         public void OnBeforeSerialize() {}
-    }
-    
-    [Serializable]
-    public sealed class ConfigInfo
-    {
-        public string Id;
-        public TypedConfig Config;
-    }
-
-    public abstract class NamedConfig : ScriptableObject, INamedConfig
-    {
-        public abstract string Id { get; }
-        public abstract IEnumerable<string> GetTags();
-    }
-
-    public abstract class TypedConfig : NamedConfig, ITypedConfig
-    {
-        public abstract string Type { get; }
     }
 }
