@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using Core.Extensions;
 using Core.Interfaces;
 using Core.Interfaces.Configs;
+using Core.Interfaces.Controllers;
 
 namespace Core.Controllers
 {
@@ -36,8 +37,11 @@ namespace Core.Controllers
             foreach (var model in _context.UserData.Models.Values)
             {
                 var config = model.GetConfig<ITypedConfig>();
-                if (!config.GetTags().Contains("start") || !config.GetTags().Contains("has_controller")) continue;
-                var controller = ControllerFactoryManager.Factory.Build<IController>(config.Type, _main, model);
+                if (!config.GetTags().Contains(Consts.Start) || !config.GetTags().Contains(Consts.HasController)) continue;
+                var controller = config is IAddressablesPrefabConfig
+                    ? ControllerFactoryManager.Factory.Build<IController>(config.Type, _main, _main.MainSceneContainer, model)
+                    : ControllerFactoryManager.Factory.Build<IController>(config.Type, _main, model);
+               
                 controller.Init();
                 _startControllers.Add(controller);
             }

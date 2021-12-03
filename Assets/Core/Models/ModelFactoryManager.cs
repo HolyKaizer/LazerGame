@@ -26,10 +26,11 @@ namespace Core.Models
 
         private static void RegisterModels()
         {
-            Factory.AddVariantFunc<IModel>(Consts.Scene, objects => new SceneModel(objects.GetValue<string>(0), objects.GetValue<ISceneConfig>(1)));
-            Factory.AddVariantFunc<IModel>(Consts.Location, objects => new LocationModel(objects.GetValue<string>(0), objects.GetValue<ILocationConfig>(1)));
-            Factory.AddVariantFunc<ILocationObjectModel>(Consts.StringEmpty, objects => new SimpleLocationObject(objects.GetValue<string>(0), objects.GetValue<ILocationObjectConfig>(1)));
-            Factory.AddVariantFunc<ILocationObjectModel>(Consts.Simple, objects => new SimpleLocationObject(objects.GetValue<string>(0), objects.GetValue<ILocationObjectConfig>(1)));
+            Factory.AddVariantFunc<IModel>(Consts.Scene, objects => new SceneModel(objects.GetValue<UserData>(0), objects.GetValue<ISceneConfig>(1)));
+            Factory.AddVariantFunc<IModel>(Consts.Location, objects => new LocationModel(objects.GetValue<UserData>(0), objects.GetValue<ILocationConfig>(1)));
+            Factory.AddVariantFunc<ILocationObjectModel>(Consts.StringEmpty, objects => new SimpleLocationObject(objects.GetValue<UserData>(0), objects.GetValue<ILocationObjectConfig>(1)));
+            Factory.AddVariantFunc<ILocationObjectModel>(Consts.Simple, objects => new SimpleLocationObject(objects.GetValue<UserData>(0), objects.GetValue<ILocationObjectConfig>(1)));
+            Factory.AddVariantFunc<ILocationObjectModel>(Consts.LocationObject, objects => new SimpleLocationObject(objects.GetValue<UserData>(0), objects.GetValue<ILocationObjectConfig>(1)));
         }
     }
 }

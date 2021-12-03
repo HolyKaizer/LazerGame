@@ -1,55 +1,57 @@
 using System.Collections.Generic;
 using Core.Extensions;
-using Core.Factory;
 using Core.Interfaces;
 using Core.Interfaces.Configs;
+using Core.Interfaces.Models;
 using Core.Structs;
 
 namespace Core.Models {
     public class LocationModel : BaseModel<ILocationConfig>, ILocationModel 
     {
         public LocationState CurrentState { get; private set; }
+
         private readonly IDictionary<string, ILocationObjectModel> _locationObjects;
-      
-        public LocationModel(string id, ILocationConfig config) : base(id, config)
+        private readonly IDictionary<string, ICharacterModel> _locationCharacters;
+
+        public LocationModel(UserData userData, ILocationConfig config) : base(config.Id, config)
         {
             var locationObjectConfigs = config.GetLocationObjectConfigs();
             _locationObjects = new Dictionary<string, ILocationObjectModel>(locationObjectConfigs.Count);
-            foreach (var locationObjectConfig in  locationObjectConfigs)
-            {
-                var model = ModelFactoryManager.Factory.Build<ILocationObjectModel>(locationObjectConfig.Type, locationObjectConfig.Id, locationObjectConfig);
-                _locationObjects.Add(model.Id, model);
-            }
+            var charactersConfigs = config.GetLocationCharactersConfigs();
+            _locationCharacters = new Dictionary<string, ICharacterModel>(charactersConfigs.Count);
+
+            ModelCollectionHelper.AddModelsToCollection(_locationObjects, userData, locationObjectConfigs);
+            ModelCollectionHelper.AddModelsToCollection(_locationCharacters, userData, charactersConfigs);
+        }
+
+        public IEnumerable<ILocationObjectModel> GetLocationObjects()
+        {
+            return _locationObjects.Values;
         }
         
+        public IEnumerable<ICharacterModel> GetLocationCharacters()
+        {
+            return _locationCharacters.Values;
+        }
+
         public override IDictionary<string, object> Save(IDictionary<string, object> rawData)
         {
-            var locationObjectsData = new Dictionary<string, object>(_locationObjects.Count);
-            foreach (var locationObject in _locationObjects.Values)
-            {
-                locationObject.Save(locationObjectsData);
-            }
             var data = new Dictionary<string, object>(1)
             {
                 [Consts.CurrentState] = (int) CurrentState,
-                [Consts.LocationObjects] = locationObjectsData
+                [Consts.LocationObjects] = ModelCollectionHelper.GetCollectionData(_locationObjects),
+                [Consts.Characters] = ModelCollectionHelper.GetCollectionData(_locationCharacters)
             };
             
             rawData.Add(Id, data);
             return rawData;
         }
-
+        
         public override void Load(IDictionary<string, object> rawData)
         {
             CurrentState = (LocationState) rawData.GetInt(Consts.CurrentState);
-            var locationObjectsData = rawData.TryGetNode(Consts.LocationObjects);
-            foreach (var objectId in locationObjectsData.Keys)
-            {
-                if (_locationObjects.TryGetValue(objectId, out var locationObject))
-                {
-                    locationObject.Load(locationObjectsData.TryGetNode(objectId));
-                }
-            }
+            ModelCollectionHelper.LoadCollection(_locationObjects, rawData, Consts.LocationObjects);
+            ModelCollectionHelper.LoadCollection(_locationCharacters, rawData, Consts.Characters);
         }
     }
 }

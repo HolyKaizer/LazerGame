@@ -1,8 +1,10 @@
 using System.Collections;
 using Core.Configs;
+using Core.Controllers.Containers;
 using Core.Extensions;
 using Core.Interfaces;
 using Core.Interfaces.Configs;
+using Core.Interfaces.Controllers.Containers;
 using Core.Loading;
 using Core.Management;
 using UnityEngine;
@@ -17,6 +19,7 @@ namespace Core
         public ILoaderContext LoaderContext { get; private set; }
         public ILoadSceneManager LoadSceneManager { get; private set; }
         public IMainSceneContainer MainSceneContainer { get; private set; }
+        public IUserData UserData => LoaderContext.UserData;
 
         [SerializeField] private MainConfig _mainConfig;
 

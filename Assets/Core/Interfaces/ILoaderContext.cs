@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Core.Interfaces.Configs;
+using Core.Interfaces.Controllers;
 
 namespace Core.Interfaces
 {

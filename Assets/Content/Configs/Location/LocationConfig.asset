@@ -19,5 +19,6 @@ MonoBehaviour:
   _locationObjectConfigs:
   - {fileID: 11400000, guid: 187b60a45d8249c4dbbdea63ea860301, type: 2}
   - {fileID: 11400000, guid: e0b4b3c6f7dbf5449a78016298ad089d, type: 2}
-  _addressablePrefabId: prefab_TouchPanel
+  _locationCharacters: []
+  _addressablePrefabId: prefab_StartLocation
   _locationTrajectoryConfig: {fileID: 0}

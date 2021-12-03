@@ -1,13 +1,22 @@
 {
+   "enemy_melee" : {
+      "current_state" : 0
+   },
+   "enemy_hostage" : {
+      "current_state" : 0
+   },
    "test_location" : {
       "current_state" : 0,
       "location_objects" : {
-         "1" : {
+         "enemy_melee" : {
             "current_state" : 0
          },
-         "2" : {
+         "enemy_hostage" : {
             "current_state" : 0
          }
+      },
+      "characters" : {
+         
       }
    }
 }

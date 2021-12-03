@@ -1,4 +1,5 @@
 using Core.Interfaces.Configs;
+using Core.Interfaces.Controllers.Containers;
 using UnityEngine;
 
 namespace Core.Interfaces
@@ -11,5 +12,6 @@ namespace Core.Interfaces
         ILoadSceneManager LoadSceneManager { get; }
         ILoaderContext LoaderContext { get; }
         IMainSceneContainer MainSceneContainer { get; }
+        IUserData UserData { get; }
     }
 }

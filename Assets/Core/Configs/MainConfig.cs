@@ -34,7 +34,7 @@ namespace Core.Configs
         
         public IEnumerable<ITypedConfig> GetStartConfigs()
         {
-            return _configInfos.Where(c => c.GetTags().Contains(Consts.StartTag));
+            return _configInfos.Where(c => c.GetTags().Contains(Consts.Start));
         }
         
         public TConfig GetConfig<TConfig>(string id) where TConfig : IConfig

@@ -1,40 +1,52 @@
+using System.Collections.Generic;
+using System.Linq;
 using Core.Extensions;
 using Core.Interfaces;
 using Core.Interfaces.Configs;
+using Core.Interfaces.Controllers;
+using Core.Interfaces.Controllers.Containers;
 using Core.Interfaces.Models;
-using UnityEngine;
 
 namespace Core.Controllers
 {
-    public sealed class LocationController : BaseController
+    public sealed class LocationController : BaseContainerLoaderController<ILocationContainer>
     {
-        private readonly IMainSceneContainer _sceneContainer;
-        private readonly IContentManager _contentManager;
-        private readonly ILocationConfig _config;
-
-        private ILocationContainer _container;
-
-        public LocationController(IMain main, IModel locationModel)
+        private readonly ILocationModel _locationModel;
+        private readonly IDictionary<string, IController> _controllers = new Dictionary<string, IController>();
+        
+        public LocationController(IMain main, IRootContainerHolder holder, ILocationModel locationModel) : base(main, holder.GetContainerRoot(locationModel.Id), locationModel.GetConfig<IAddressablesPrefabConfig>())
         {
-            _contentManager = main.LoaderContext.ContentManager;
-            _sceneContainer = main.MainSceneContainer;
-            _config = locationModel.GetConfig<ILocationConfig>();
+            _locationModel = locationModel;
         }
         
-        protected override void OnInit()
+        protected override void OnContainerLoaded()
         {
-            _contentManager.BundleLoader.GetAsync<GameObject>(_config.AddressablePrefabId, OnContainerLoaded);
+            Container.LocationRoot.SetSafeActive(true);
+            CreateControllers(_locationModel.GetLocationObjects());
+            CreateControllers(_locationModel.GetLocationCharacters());
         }
-        
-        private void OnContainerLoaded(string key, GameObject containerPrefab)
+
+        private void CreateControllers<TModel>(IEnumerable<TModel> collection) where TModel : IModel
         {
-            _container = Object.Instantiate(containerPrefab, _sceneContainer.UiRoot.transform, false).GetComponent<ILocationContainer>();
-            _container.LocationRoot.SetSafeActive(true);
+            foreach (var model in collection.Where(m => m.GetConfig<IConfig>().GetTags().Contains(Consts.HasController)))
+            {
+                var controller = model.GetConfig<IAddressablesPrefabConfig>() != null
+                    ? ControllerFactoryManager.Factory.Build<IController>(model.GetConfig<ITypedConfig>().Type, _main, Container, model)
+                    : ControllerFactoryManager.Factory.Build<IController>(model.GetConfig<ITypedConfig>().Type, _main, model);
+
+                controller.Init();
+                _controllers.Add(model.Id, controller);
+            }
         }
 
         protected override void OnDispose()
         {
-            _container = null;
+            base.OnDispose();
+            
+            foreach (var controller in _controllers.Values)
+            {
+                controller.Dispose();
+            }
         }
     }
 }

@@ -9,7 +9,7 @@ namespace Core.Models
 {
     public sealed class SceneModel : BaseModel<ISceneConfig>, ISceneModel
     {
-        public SceneModel(string id, ISceneConfig config) : base(id, config)
+        public SceneModel(UserData userData, ISceneConfig config) : base(config.Id, config)
         {
         }
 

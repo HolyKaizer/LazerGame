@@ -1,6 +1,6 @@
 using System;
 
-namespace Core.Interfaces
+namespace Core.Interfaces.Controllers
 {
     public interface IController : IDisposable
     {

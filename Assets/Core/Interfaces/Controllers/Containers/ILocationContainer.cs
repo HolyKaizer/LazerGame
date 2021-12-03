@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Core.Interfaces
+namespace Core.Interfaces.Controllers.Containers
 {
     public interface ILocationContainer
     {

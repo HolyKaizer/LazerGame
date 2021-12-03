@@ -1,4 +1,3 @@
-using Core.Interfaces;
 using Core.Interfaces.Configs;
 
 namespace Core.Models 
@@ -6,7 +5,7 @@ namespace Core.Models
     
     public sealed class SimpleLocationObject : LocationObjectModel
     {
-        public SimpleLocationObject(string id, ILocationObjectConfig config) : base(id, config)
+        public SimpleLocationObject(UserData userData, ILocationObjectConfig config) : base(config.Id, config)
         {
         }
     }
