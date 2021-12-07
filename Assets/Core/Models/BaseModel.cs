@@ -1,5 +1,8 @@
 using System.Collections.Generic;
+using Core.Extensions;
 using Core.Interfaces;
+using Core.Interfaces.Configs;
+using Core.Interfaces.Models;
 
 namespace Core.Models
 {
@@ -14,9 +17,9 @@ namespace Core.Models
             Config = config;
         }
         
-        public abstract IDictionary<string, object> Serialize(IDictionary<string, object> rawData);
+        public abstract IDictionary<string, object> Save(IDictionary<string, object> rawData);
 
-        public abstract void Deserialize(IDictionary<string, object> rawData);
+        public abstract void Load(IDictionary<string, object> rawData);
         
         public T GetConfig<T>() where T : IConfig
         {

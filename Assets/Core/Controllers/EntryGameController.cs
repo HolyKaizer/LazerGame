@@ -1,17 +1,23 @@
 using System.Collections.Generic;
+using Core.Extensions;
 using Core.Interfaces;
-using Core.Loading;
+using Core.Interfaces.Configs;
+using Core.Interfaces.Controllers;
 
 namespace Core.Controllers
 {
     public sealed class EntryGameController : BaseController
     {
-        private readonly ILoaderContext _context;
-        private readonly IController _inputController;
+        private readonly ICollection<IController> _startControllers = new HashSet<IController>();
 
-        public EntryGameController(ILoaderContext context, IMain main)
+        private readonly IController _inputController;
+        private readonly ILoaderContext _context;
+        private readonly IMain _main;
+
+        public EntryGameController(IMain main)
         {
-            _context = context;
+            _context = main.LoaderContext;
+            _main = main;
             _inputController = new InputController(main.MainConfig.ActionAsset.FindActionMap(Consts.Player), main.InputViewModel.RotateInputViewModel);
         }
 
@@ -19,17 +25,37 @@ namespace Core.Controllers
         {
             if (_context.RawSaves != null)
             {
-                _context.UserData.Deserialize(_context.RawSaves);
+                _context.UserData.Load(_context.RawSaves);
             }
-            
             _inputController.Init();
+
+            AddAndInitStartControllers();
+        }
+
+        private void AddAndInitStartControllers()
+        {
+            foreach (var model in _context.UserData.Models.Values)
+            {
+                var config = model.GetConfig<ITypedConfig>();
+                if (!config.GetTags().Contains(Consts.Start) || !config.GetTags().Contains(Consts.HasController)) continue;
+                var controller = config is IAddressablesPrefabConfig
+                    ? ControllerFactoryManager.Factory.Build<IController>(config.Type, _main, _main.MainSceneContainer, model)
+                    : ControllerFactoryManager.Factory.Build<IController>(config.Type, _main, model);
+               
+                controller.Init();
+                _startControllers.Add(controller);
+            }
         }
 
         protected override void OnDispose()
         {
+            foreach (var controller in _startControllers)
+            {
+                controller.Dispose();
+            }
             _inputController.Dispose();
             
-            var saveData = _context.UserData.Serialize(new Dictionary<string, object>());
+            var saveData = _context.UserData.Save(new Dictionary<string, object>());
             _context.JsonFileReader.Save(saveData, _context.FilePaths["save"]);
         }
     }

@@ -1,10 +1,11 @@
+using Core.Interfaces;
 using UnityEngine;
 
 namespace Core
 {
     public sealed class GameStart : MonoBehaviour
     {
-        [SerializeField] private MainBase _mainPrefab;
+        [SerializeField] private Main _mainPrefab;
         private IMain _currentMain;
         
         private void Start()
@@ -27,7 +28,7 @@ namespace Core
 #if LG_DEVELOP
         private static bool CheckHasMain()
         {
-            return FindObjectsOfType<MainBase>().Length > 0;
+            return FindObjectsOfType<Main>().Length > 0;
         }
 #endif
     }

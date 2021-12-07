@@ -1,5 +1,6 @@
 using System.Collections;
 using Core.Controllers;
+using Core.Interfaces;
 
 namespace Core.Loading.Steps
 {
@@ -13,7 +14,7 @@ namespace Core.Loading.Steps
         
         protected override IEnumerator OnLoad()
         {
-            _context.EntryGameController = new EntryGameController(_context, _main);
+            _context.EntryGameController = new EntryGameController(_main);
             _context.IsLoadDone = true;
             yield break;
         }

@@ -1,10 +1,11 @@
 using Core.Input;
+using Core.Interfaces;
 
 namespace Core
 {
-    public class InputViewModel
+    public class InputViewModel : IInputViewModel
     {
-        public RotateInputViewModel RotateInputViewModel { get; }
+        public IRotateInputViewModel RotateInputViewModel { get; }
 
         public InputViewModel()
         {

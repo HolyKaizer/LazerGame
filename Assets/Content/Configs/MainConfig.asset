@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _actionsAsset: {fileID: -944628639613478452, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
   _configInfos:
-  - Id: main_scene
-    Config: {fileID: 11400000, guid: f1b08fb23fece5442be968b9a75af29a, type: 2}
+  - {fileID: 11400000, guid: f1b08fb23fece5442be968b9a75af29a, type: 2}
+  - {fileID: 11400000, guid: 7cf33f2473fe89c4b8bacf353874d0e3, type: 2}

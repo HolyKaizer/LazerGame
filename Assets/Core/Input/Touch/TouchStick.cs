@@ -1,4 +1,4 @@
-﻿using Core.UI;
+﻿using Core.Extensions;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.UI;
