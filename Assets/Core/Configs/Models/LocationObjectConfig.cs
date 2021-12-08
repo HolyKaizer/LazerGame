@@ -1,11 +1,12 @@
 using Core.Interfaces.Configs;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 
 namespace Core.Configs.Models 
 {
     public abstract class LocationObjectConfig : TypedConfig, ILocationObjectConfig
-    {
-        [SerializeField] private string _addressablesId;
-        public string AddressablesId => _addressablesId;
+    {     
+        public AssetReference AddressablesPrefab => _addressablePrefab;
+        [SerializeField] private AssetReference _addressablePrefab;
     }
 }

@@ -15,7 +15,8 @@ namespace Core.Management
     public sealed class BundleLoader : IBundleLoader
     {
         private readonly string _name;
-        private readonly Dictionary<string, AsyncOperationHandle<Object>> _handles = new Dictionary<string, AsyncOperationHandle<Object>>();
+        private readonly IDictionary<string, AsyncOperationHandle<Object>> _handles = new Dictionary<string, AsyncOperationHandle<Object>>();
+        private readonly IDictionary<AssetReference, AsyncOperationHandle<Object>> _refHandles = new Dictionary<AssetReference, AsyncOperationHandle<Object>>();
 
         private bool _loaded;
         private AsyncOperationHandle<Object> _bundleHandler;
@@ -110,6 +111,31 @@ namespace Core.Management
 
             return (T) handler.Result;
         }
+        
+        public async Task<T> GetAsync<T>(AssetReference reference, Action<string, T> completeCallback = null) where T : Object
+        {
+            var handler = GetLoadHandler(reference);
+            
+            if(!handler.IsDone)
+                await handler.Task;
+            
+            completeCallback?.Invoke(reference.Asset.name, (T) handler.Result);
+
+            return (T) handler.Result;
+        }
+
+        private AsyncOperationHandle<Object> GetLoadHandler(AssetReference reference)
+        {
+            if (!_refHandles.TryGetValue(reference, out var handler) || !handler.IsValid())
+            {
+                if(!handler.IsValid())
+                    ReleaseAsset(reference);
+                
+                handler = Addressables.LoadAssetAsync<Object>(reference);
+                _refHandles.Add(reference, handler);
+            }
+            return handler;
+        }
 
         public async Task PreloadAsync<T>(string key, Action<string, T> completeCallback) where T : Object
         {
@@ -134,7 +160,7 @@ namespace Core.Management
 
             return handler;
         }
-
+        
         public void ReleaseAsset(string key)
         {
             if (_handles.TryGetValue(key, out var assetHandle))
@@ -145,7 +171,18 @@ namespace Core.Management
                 _handles.Remove(key);
             }
         }
+        
+        public void ReleaseAsset(AssetReference key)
+        {
+            if (_refHandles.TryGetValue(key, out var assetHandle))
+            {
+                if (assetHandle.IsValid())
+                    Addressables.Release(assetHandle);
 
+                _refHandles.Remove(key);
+            }
+        }
+        
         public T GetComponent<T>(string key) where T : Component
         {
             var go = Get<GameObject>(key);

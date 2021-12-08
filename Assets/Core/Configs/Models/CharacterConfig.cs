@@ -1,21 +1,18 @@
 using Core.Extensions;
 using Core.Interfaces;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 
 namespace Core.Configs.Models
 {
     [CreateAssetMenu(menuName = "EndlessSoftware/CharacterConfig", fileName = "CharacterConfig")]
     public sealed class CharacterConfig : TypedConfig, ICharacterConfig
     {
-        [SerializeField] private string _moveType;
-        [SerializeField] private string _addressablesId;
-
-        public void set()
-        {
-            
-        }
         public override string Type => Consts.Character;
+        public AssetReference AddressablesPrefab => _addressablePrefab;
         public string MoveType => _moveType;
-        public string AddressablesId => _addressablesId;
+        
+        [SerializeField] private AssetReference _addressablePrefab;
+        [SerializeField] private string _moveType;
     }
 }

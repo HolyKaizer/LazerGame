@@ -3,6 +3,7 @@ using Core.Extensions;
 using Core.Interfaces;
 using Core.Interfaces.Configs;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 
 namespace Core.Controllers
 {
@@ -23,10 +24,10 @@ namespace Core.Controllers
 
         protected override void OnInit()
         {
-            _main.MonoBehaviour.StartCoroutine(LoadContainerAsync(_addressablesConfig.AddressablesId));
+            _main.MonoBehaviour.StartCoroutine(LoadContainerAsync(_addressablesConfig.AddressablesPrefab));
         }
 
-        private IEnumerator LoadContainerAsync(string addressables)
+        private IEnumerator LoadContainerAsync(AssetReference addressables)
         {
             yield return _main.LoaderContext.ContentManager.BundleLoader.GetAsync<GameObject>(addressables, OnContainerPrefabLoaded);
         }
