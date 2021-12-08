@@ -7,10 +7,12 @@ namespace Core.Models.Character
 {
     public class CharacterStorage : ICharacterStorage
     {
+        private readonly string _id;
         private readonly IDictionary<string, object> _curStorage = new Dictionary<string, object>(64);
         
-        public CharacterStorage(IDictionary<string, object> rawData)
+        public CharacterStorage(string id, IDictionary<string, object> rawData)
         {
+            _id = id;
             foreach (var kvp in rawData)
             {
                 _curStorage[kvp.Key] = kvp.Value is IBuildable buildable
@@ -19,13 +21,18 @@ namespace Core.Models.Character
             }
         }
 
+        public void Set<T>(string id, T value)
+        {
+            _curStorage[id] = value;
+        }
+        
         public T Get<T>(string id)
         {
 
             if(!_curStorage.TryGetValue(id, out var value))
             {
 #if LG_DEVELOP
-                CustomLogger.LogAssertion($"Try to get {id} value from storage");
+                CustomLogger.LogAssertion($"Try to get nonexistent item named=\"{id}\" from {_id} storage");
 #endif
                 return default;
             }
@@ -33,7 +40,7 @@ namespace Core.Models.Character
             if (!(value is T tValue))
             {
 #if LG_DEVELOP
-                CustomLogger.LogAssertion($"Try to get {typeof(T)} type from {value}");
+                CustomLogger.LogAssertion($"Try to get {typeof(T)} type from {value.GetType()}");
 #endif
                 return default;
             }

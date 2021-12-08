@@ -2,12 +2,13 @@ using System.Collections;
 using Core.Extensions;
 using Core.Interfaces;
 using Core.Interfaces.Configs;
+using Core.Interfaces.Controllers.Containers;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 
 namespace Core.Controllers
 {
-    public abstract class BaseContainerLoaderController<TContainer> : BaseController 
+    public abstract class BaseContainerLoaderController<TContainer> : BaseController where TContainer : IContainer
     {
         protected TContainer Container { get; private set; }     
         protected readonly IMain _main;
@@ -29,7 +30,7 @@ namespace Core.Controllers
 
         private IEnumerator LoadContainerAsync(AssetReference addressables)
         {
-            yield return _main.LoaderContext.ContentManager.BundleLoader.GetAsync<GameObject>(addressables, OnContainerPrefabLoaded);
+            yield return _main.LoaderContext.ContentManager.BundleLoader.GetAsync<GameObject>(addressables.AssetGUID, OnContainerPrefabLoaded);
         }
 
         private void OnContainerPrefabLoaded(string id, GameObject prefab)
@@ -55,6 +56,7 @@ namespace Core.Controllers
 
         protected override void OnDispose()
         {
+            _main.LoaderContext?.ContentManager?.BundleLoader?.ReleaseAsset(_addressablesConfig?.AddressablesPrefab.AssetGUID);
             Container = default;
         }
     }

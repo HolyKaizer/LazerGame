@@ -17,6 +17,7 @@ MonoBehaviour:
   - enemy_hostage
   - test_location
   - main_scene
+  - player_character
   _tags:
   - has_controller
   - start

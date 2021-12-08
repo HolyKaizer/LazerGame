@@ -16,7 +16,6 @@ namespace Core.Management
     {
         private readonly string _name;
         private readonly IDictionary<string, AsyncOperationHandle<Object>> _handles = new Dictionary<string, AsyncOperationHandle<Object>>();
-        private readonly IDictionary<AssetReference, AsyncOperationHandle<Object>> _refHandles = new Dictionary<AssetReference, AsyncOperationHandle<Object>>();
 
         private bool _loaded;
         private AsyncOperationHandle<Object> _bundleHandler;
@@ -112,31 +111,6 @@ namespace Core.Management
             return (T) handler.Result;
         }
         
-        public async Task<T> GetAsync<T>(AssetReference reference, Action<string, T> completeCallback = null) where T : Object
-        {
-            var handler = GetLoadHandler(reference);
-            
-            if(!handler.IsDone)
-                await handler.Task;
-            
-            completeCallback?.Invoke(reference.Asset.name, (T) handler.Result);
-
-            return (T) handler.Result;
-        }
-
-        private AsyncOperationHandle<Object> GetLoadHandler(AssetReference reference)
-        {
-            if (!_refHandles.TryGetValue(reference, out var handler) || !handler.IsValid())
-            {
-                if(!handler.IsValid())
-                    ReleaseAsset(reference);
-                
-                handler = Addressables.LoadAssetAsync<Object>(reference);
-                _refHandles.Add(reference, handler);
-            }
-            return handler;
-        }
-
         public async Task PreloadAsync<T>(string key, Action<string, T> completeCallback) where T : Object
         {
             var handler = GetLoadHandler<T>(key);
@@ -169,17 +143,6 @@ namespace Core.Management
                     Addressables.Release(assetHandle);
 
                 _handles.Remove(key);
-            }
-        }
-        
-        public void ReleaseAsset(AssetReference key)
-        {
-            if (_refHandles.TryGetValue(key, out var assetHandle))
-            {
-                if (assetHandle.IsValid())
-                    Addressables.Release(assetHandle);
-
-                _refHandles.Remove(key);
             }
         }
         

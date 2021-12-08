@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0fd2e16ade94e17a9e8041c685b6115, type: 3}
   m_Name: EnemyHostageCharacterConfig
   m_EditorClassIdentifier: 
+  _id: enemy_hostage
   _tags:
   - has_controller
   _addressablePrefab:

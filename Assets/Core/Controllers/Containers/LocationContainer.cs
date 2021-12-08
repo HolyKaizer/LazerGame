@@ -9,6 +9,5 @@ namespace Core.Controllers.Containers
         public GameObject LocationRoot => _locationRoot;
 
         [SerializeField] private GameObject _locationRoot;
-       
     }
 }

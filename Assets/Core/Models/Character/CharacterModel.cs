@@ -2,9 +2,28 @@ using System.Collections.Generic;
 using Core.Extensions;
 using Core.Interfaces;
 using Core.Interfaces.Models;
+using UnityEngine;
 
 namespace Core.Models.Character
 {
+    public sealed class TrajectoryMoveProcessor : IMoveProcessor
+    {
+        private void MoveInDirection(Vector2 direction, float speed)
+        {
+            throw new System.NotImplementedException();
+        }
+        
+        public void ProcessMove(float dt)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        private void MoveToPoint(Vector2 point)
+        {
+            throw new System.NotImplementedException();
+        }
+
+    }
     public sealed class CharacterModel : BaseModel<ICharacterConfig>, ICharacterModel
     {
         public ICharacterStorage Storage { get; private set; }
@@ -25,7 +44,7 @@ namespace Core.Models.Character
 
         public override void Load(IDictionary<string, object> rawData)
         {
-            Storage = new CharacterStorage(rawData.TryGetNode(Consts.Storage));
+            Storage = new CharacterStorage(Id, rawData.TryGetNode(Consts.Storage));
         }
     }
 }

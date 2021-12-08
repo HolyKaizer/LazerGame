@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Core.Interfaces.Controllers.Containers
 {
-    public interface ILocationContainer
+    public interface ILocationContainer : IContainer
     {
         GameObject LocationRoot { get; }
     }

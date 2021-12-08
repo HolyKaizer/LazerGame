@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Core.Extensions;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
@@ -30,6 +31,37 @@ namespace Core.Management
                 yield return _nextFrame;
                 GC.Collect(2);
                 yield return _nextFrame;
+            }
+        }
+        
+        public IEnumerator LoadScenes(IEnumerable<AssetReference> sceneAssets)
+        {
+            foreach (var scene in sceneAssets)
+            {
+                var loadScene = Addressables.LoadSceneAsync(scene, LoadSceneMode.Additive);
+                _loaders[scene.AssetGUID] = loadScene;
+
+                while (!loadScene.IsDone)
+                {
+                    yield return new WaitForEndOfFrame();
+                }
+                CustomLogger.Log($"Scene {scene} is loaded");
+                yield return _nextFrame;
+                GC.Collect(2);
+                yield return _nextFrame;
+            }
+        }
+        
+        public IEnumerator UnloadScenes(IEnumerable<AssetReference> sceneAssets)
+        {
+            foreach (var scenes in sceneAssets)
+            {
+                if (_loaders.TryGetValue(scenes.AssetGUID, out var sceneHandler))
+                {
+                    _loaders.Remove(scenes.AssetGUID);
+                    yield return Addressables.UnloadSceneAsync(sceneHandler);
+                    CustomLogger.Log($"Scene {scenes} is unloaded");
+                }
             }
         }
         
