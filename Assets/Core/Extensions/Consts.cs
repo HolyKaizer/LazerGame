@@ -19,5 +19,6 @@ namespace Core.Extensions
         public const string Storage = "storage";
         public const string DefaultVariant = "default_variant";
         public const string HasController = "has_controller";
+        public const string Position = "position";
     }
 }

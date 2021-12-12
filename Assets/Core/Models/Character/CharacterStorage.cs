@@ -10,9 +10,13 @@ namespace Core.Models.Character
         private readonly string _id;
         private readonly IDictionary<string, object> _curStorage = new Dictionary<string, object>(64);
         
-        public CharacterStorage(string id, IDictionary<string, object> rawData)
+        public CharacterStorage(string id)
         {
             _id = id;
+        }
+
+        public void Load(IDictionary<string, object> rawData)
+        {
             foreach (var kvp in rawData)
             {
                 _curStorage[kvp.Key] = kvp.Value is IBuildable buildable
@@ -21,6 +25,16 @@ namespace Core.Models.Character
             }
         }
 
+        public T GetOrCreate<T>(string id, params object[] args)
+        {
+            if (!_curStorage.TryGetValue(id, out var value))
+            {
+                value = ModelFactoryManager.Factory.SimpleBuild<T>(args);
+            }
+
+            return (T) value;
+        }
+        
         public void Set<T>(string id, T value)
         {
             _curStorage[id] = value;
