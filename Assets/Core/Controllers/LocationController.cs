@@ -13,14 +13,16 @@ namespace Core.Controllers
     {
         private readonly ILocationModel _locationModel;
         private readonly IDictionary<string, IController> _controllers = new Dictionary<string, IController>();
-        
+
         public LocationController(IMain main, IRootContainerHolder holder, ILocationModel locationModel) : base(main, holder.GetContainerRoot(locationModel.Id), locationModel.GetConfig<IAddressablesPrefabConfig>())
         {
             _locationModel = locationModel;
         }
-        
+
         protected override void OnContainerLoaded()
         {
+            _locationModel.SetLoadingComplete();
+
             Container.LocationRoot.SetSafeActive(true);
             CreateControllers(_locationModel.GetLocationObjects());
             CreateControllers(_locationModel.GetLocationCharacters());
@@ -42,7 +44,7 @@ namespace Core.Controllers
         protected override void OnDispose()
         {
             base.OnDispose();
-            
+
             foreach (var controller in _controllers.Values)
             {
                 controller.Dispose();

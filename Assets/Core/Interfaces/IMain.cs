@@ -1,4 +1,5 @@
 using Core.Interfaces.Configs;
+using Core.Interfaces.Controllers;
 using Core.Interfaces.Controllers.Containers;
 using UnityEngine;
 
@@ -13,5 +14,7 @@ namespace Core.Interfaces
         ILoaderContext LoaderContext { get; }
         IMainSceneContainer MainSceneContainer { get; }
         IUserData UserData { get; }
+        ISplashScreen SplashScreen { get; }
+        void CompleteLoadingStep();
     }
 }

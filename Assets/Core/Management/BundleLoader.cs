@@ -161,6 +161,19 @@ namespace Core.Management
             Release();
         }
 
+        public (bool, AsyncOperationHandle<Object>) GetHandler(string id)
+        {
+            if (!_handles.TryGetValue(id, out var handle))
+            {
+                #if LG_DEVELOP
+                CustomLogger.LogAssertion($"Cannot find handler for id =\"{id}\"");
+                #endif
+                return (false, default);
+            }
+
+            return (true, handle);
+        }
+
         public void Release()
         {
             foreach (var handle in _handles.Where(handle => handle.Value.IsValid()))

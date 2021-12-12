@@ -6,7 +6,7 @@ using Core.Interfaces.Controllers;
 
 namespace Core.Controllers
 {
-    public sealed class EntryGameController : BaseController
+    public sealed class EntryGameController : BaseController, IEntryGameController
     {
         private readonly ICollection<IController> _startControllers = new HashSet<IController>();
 
@@ -34,10 +34,11 @@ namespace Core.Controllers
 
         private void AddAndInitStartControllers()
         {
-            foreach (var model in _context.UserData.Models.Values)
+            foreach (var model in _context.UserData.GetStartModels())
             {
                 var config = model.GetConfig<ITypedConfig>();
-                if (!config.GetTags().Contains(Consts.Start) || !config.GetTags().Contains(Consts.HasController)) continue;
+                if (!config.GetTags().Contains(Consts.HasController)) continue;
+               
                 var controller = config is IAddressablesPrefabConfig
                     ? ControllerFactoryManager.Factory.Build<IController>(config.Type, _main, _main.MainSceneContainer, model)
                     : ControllerFactoryManager.Factory.Build<IController>(config.Type, _main, model);
@@ -47,6 +48,17 @@ namespace Core.Controllers
             }
         }
 
+        public void Update(float dt)
+        {
+            if(!_isInited) return;
+            
+            foreach (var controller in _startControllers)
+            {
+                if(controller is IUpdatable updatable) 
+                    updatable.Update(dt);
+            }
+        }
+        
         protected override void OnDispose()
         {
             foreach (var controller in _startControllers)

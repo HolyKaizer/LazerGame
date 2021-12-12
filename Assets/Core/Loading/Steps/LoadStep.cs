@@ -21,6 +21,7 @@ namespace Core.Loading.Steps
         {
             CustomLogger.Log($"Loading step=\"{StepId}\" started");
             yield return OnLoad();
+            _main.CompleteLoadingStep();
         }
 
         protected abstract IEnumerator OnLoad();

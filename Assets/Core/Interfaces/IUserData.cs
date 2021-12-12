@@ -7,7 +7,8 @@ namespace Core.Interfaces
     public interface IUserData : IModel
     {
         event Action<IModel> ModelAdded;
-        IDictionary<string, IModel> Models { get; }
         void AddModel(IModel model);
+        T Get<T>(string id) where T : IModel;
+        IEnumerable<IModel> GetStartModels();
     }
 }

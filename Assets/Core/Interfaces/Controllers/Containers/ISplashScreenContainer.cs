@@ -1,6 +1,6 @@
 namespace Core.Interfaces.Controllers.Containers
 {
-    public interface ISplashScreenContainer : IContainer
+    public interface ISplashScreenContainer : ISetActiveContainer
     {
         void SetFill(float value);
     }

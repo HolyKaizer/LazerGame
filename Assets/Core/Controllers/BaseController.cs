@@ -4,7 +4,7 @@ namespace Core.Controllers
 {
     public abstract class BaseController : IController
     {
-        private bool _isInited;
+        protected bool _isInited { get; private set; }
         
         public void Init()
         {

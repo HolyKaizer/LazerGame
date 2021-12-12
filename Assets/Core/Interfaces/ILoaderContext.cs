@@ -13,7 +13,7 @@ namespace Core.Interfaces
         IMainConfig MainConfig { get; }
         public bool IsLoadDone { get; }
         IUserData UserData { get; }
-        IController EntryGameController { get; }
+        IEntryGameController EntryGameController { get; }
         int StepsCount { get; }
     }
 }

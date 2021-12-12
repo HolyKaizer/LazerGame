@@ -1,4 +1,6 @@
-using Core.Interfaces;
+using Core.Controllers;
+using Core.Controllers.Containers;
+using Core.Interfaces.Controllers;
 using UnityEngine;
 
 namespace Core
@@ -6,7 +8,8 @@ namespace Core
     public sealed class GameStart : MonoBehaviour
     {
         [SerializeField] private Main _mainPrefab;
-        private IMain _currentMain;
+        [SerializeField] private SplashScreenContainer _screenContainer;
+        private ISplashScreen _splashScreen;
         
         private void Start()
         {
@@ -14,7 +17,12 @@ namespace Core
             if (!CheckHasMain())
             {
 #endif
-                _currentMain = Instantiate(_mainPrefab, transform, false);
+                var main = Instantiate(_mainPrefab);
+                _splashScreen = new SplashScreen(_screenContainer);
+
+                main.SetSplash(_splashScreen);
+                main.SetLoadingProgress(0);
+                _splashScreen.SetProgress(main);
 #if LG_DEVELOP
                 
             }

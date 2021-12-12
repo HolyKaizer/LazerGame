@@ -15,6 +15,6 @@ namespace Core.Loading
         public IMainConfig MainConfig { get; set; }
         public bool IsLoadDone { get; set; }
         public IUserData UserData { get; set; }
-        public IController EntryGameController { get; set; }
+        public IEntryGameController EntryGameController { get; set; }
     }
 }

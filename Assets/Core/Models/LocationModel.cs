@@ -9,6 +9,8 @@ namespace Core.Models {
     public class LocationModel : BaseModel<ILocationConfig>, ILocationModel 
     {
         public LocationState CurrentState { get; private set; }
+        public bool IsLoadingCompleted { get; private set;}
+        public float CurLoadingProgress { get; private set; }
 
         private readonly IDictionary<string, ILocationObjectModel> _locationObjects;
         private readonly IDictionary<string, ICharacterModel> _locationCharacters;
@@ -34,6 +36,16 @@ namespace Core.Models {
             return _locationCharacters.Values;
         }
 
+        public void SetLoadingComplete()
+        {
+            IsLoadingCompleted = true;
+        }
+        
+        public void SetLoadingProgress(float value)
+        {
+            CurLoadingProgress = value;
+        }
+        
         public override IDictionary<string, object> Save(IDictionary<string, object> rawData)
         {
             var data = new Dictionary<string, object>(1)
