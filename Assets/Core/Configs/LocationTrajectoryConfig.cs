@@ -11,5 +11,6 @@ namespace Core.Configs
         public override string Type => Consts.LocationTrajectory;
 
         [SerializeField] private List<Vector3> _points;
+        public List<Vector3> MovePoints => _points;
     }
 }

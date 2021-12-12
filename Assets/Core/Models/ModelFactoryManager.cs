@@ -3,7 +3,9 @@ using Core.Factory;
 using Core.Interfaces;
 using Core.Interfaces.Configs;
 using Core.Interfaces.Models;
+using Core.Models.Character;
 using Core.Models.SceneLogic;
+using UnityEngine;
 
 namespace Core.Models
 {
@@ -16,6 +18,12 @@ namespace Core.Models
             Factory = factory;
             RegisterSceneLogics();
             RegisterModels();
+            RegisterSimpleTypes();
+        }
+
+        private static void RegisterSimpleTypes()
+        {
+            Factory.AddVariantFunc<ModelPosition>(objects => new ModelPosition(objects.GetValue<Vector3>(0)));
         }
         
         private static void RegisterSceneLogics()

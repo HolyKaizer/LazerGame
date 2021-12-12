@@ -1,21 +1,23 @@
 using System.Collections.Generic;
 using Core.Extensions;
 using Core.Interfaces;
+using Core.Interfaces.Configs;
 using Core.Interfaces.Models;
+using Core.Models.Character;
 
-namespace Core.Models.Character
+namespace Core.Models.Enemy 
 {
-    public sealed class CharacterModel : BaseModel<ICharacterConfig>, ICharacterModel
+    public class EnemyModel : BaseModel<IEnemyConfig>, ICharacterModel, IMovableModel
     {
         public ICharacterStorage Storage { get; }
         public IMoveProcessor MoveProcessor { get; }
-
-        public CharacterModel(UserData userData, ICharacterConfig config) : base(config.Id, config)
+        
+        public EnemyModel(string id, IEnemyConfig config) : base(id, config)
         {
             Storage = new CharacterStorage(Id);
-            MoveProcessor = ModelFactoryManager.Factory.Build<IMoveProcessor>(config.MoveType, config);
+            MoveProcessor = ModelFactoryManager.Factory.Build<IMoveProcessor>(config.MoveType, this);
         }
-
+        
         public override IDictionary<string, object> Save(IDictionary<string, object> rawData)
         {
             var modelData = new Dictionary<string, object>(1);
@@ -28,5 +30,8 @@ namespace Core.Models.Character
         {
             Storage.Load(rawData.TryGetNode(Consts.Storage));
         }
+        
+        
+        
     }
 }

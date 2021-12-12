@@ -13,4 +13,12 @@ namespace Core.Structs
         Damaged,
         Common
     }
+
+    public enum CharacterState 
+    {
+        Idle,
+        Dead,
+        Patrol,
+        Agro
+    }
 }
