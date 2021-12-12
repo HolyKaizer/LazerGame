@@ -15,6 +15,6 @@ namespace Core.Controllers.Containers
             OnAwake();
         }
 
-        protected abstract void OnAwake();
+        protected virtual void OnAwake() {}
     }
 }

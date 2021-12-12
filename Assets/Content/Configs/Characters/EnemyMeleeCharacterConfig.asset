@@ -10,13 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d0fd2e16ade94e17a9e8041c685b6115, type: 3}
-  m_Name: EnemyHostageCharacterConfig
+  m_Name: EnemyMeleeCharacterConfig
   m_EditorClassIdentifier: 
-  _id: enemy_hostage
+  _id: enemy_melee
   _tags:
   - has_controller
   _addressablePrefab:
-    m_AssetGUID: 6b02370402605154ca7f70c72fe22e69
+    m_AssetGUID: 8d56164fdfaf029499069fdd8a0b728d
     m_SubObjectName: 
     m_SubObjectType: 
     m_EditorAssetChanged: 0
+  _startOffset: {x: 1, y: 0, z: 0}
