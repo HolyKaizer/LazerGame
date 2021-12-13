@@ -8,7 +8,7 @@ namespace Core.Extensions.Editor
     {
         [SerializeField] private List<string> _ids;
         [SerializeField] private List<string> _tags;
-        public IReadOnlyCollection<string> ModelIds => _ids;
-        public IReadOnlyCollection<string> Tags => _tags;
+        public IEnumerable<string> ModelIds => _ids;
+        public IEnumerable<string> Tags => _tags;
     }
 }

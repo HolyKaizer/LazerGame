@@ -5,28 +5,25 @@ using Core.Interfaces.Models;
 
 namespace Core.Models.Character
 {
-    public sealed class CharacterModel : BaseModel<ICharacterConfig>, ICharacterModel
+    public abstract class CharacterModel<TConfig> : BaseModel<TConfig>, ICharacterModel where TConfig : ICharacterConfig
     {
         public ICharacterStorage Storage { get; }
-        public IMoveProcessor MoveProcessor { get; }
 
-        public CharacterModel(UserData userData, ICharacterConfig config) : base(config.Id, config)
+        protected CharacterModel(UserData userData, TConfig config, IDictionary<string, object> rawSave = null) : base(config.Id, config)
         {
-            Storage = new CharacterStorage(Id);
-            MoveProcessor = ModelFactoryManager.Factory.Build<IMoveProcessor>(config.MoveType, config);
+            Storage = rawSave != null
+                ? new CharacterStorage(Id, rawSave.TryGetNode(Consts.Storage))
+                : new CharacterStorage(Id);
         }
 
         public override IDictionary<string, object> Save(IDictionary<string, object> rawData)
         {
-            var modelData = new Dictionary<string, object>(1);
-            modelData[Consts.Storage] = Storage.Save(modelData);
+            IDictionary<string, object> modelData = new Dictionary<string, object> {[Consts.Storage] = Storage.Save()};
+            modelData = OnSave(modelData);
             rawData[Id] = modelData;
             return rawData;
         }
 
-        public override void Load(IDictionary<string, object> rawData)
-        {
-            Storage.Load(rawData.TryGetNode(Consts.Storage));
-        }
+        protected abstract IDictionary<string, object> OnSave(IDictionary<string, object> rawData);
     }
 }

@@ -10,6 +10,7 @@ namespace Core.Extensions
         public const string StartSceneLogic = "start_scene_logic";
         public const string Location = "location";
         public const string LocationTrajectory = "location_trajectory";
+        public const string Trajectory = "trajectory";
         public const string CurrentState = "current_state";
         public const string LocationObjects = "location_objects";
         public const string LocationObject = "location_object";
@@ -20,5 +21,9 @@ namespace Core.Extensions
         public const string DefaultVariant = "default_variant";
         public const string HasController = "has_controller";
         public const string Position = "position";
+        public const string Type = "type";
+        public const string MovableCharacter = "movabele_character";
+        public const string CurPointIndex = "cur_point_index";
+        public const string MoveProcessor = "move_processor";
     }
 }

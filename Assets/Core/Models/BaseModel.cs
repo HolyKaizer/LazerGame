@@ -19,8 +19,6 @@ namespace Core.Models
         
         public abstract IDictionary<string, object> Save(IDictionary<string, object> rawData);
 
-        public abstract void Load(IDictionary<string, object> rawData);
-        
         public T GetConfig<T>() where T : IConfig
         {
             if (Config is T tConfig) return tConfig;

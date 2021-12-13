@@ -10,9 +10,5 @@ namespace Core.Controllers.Containers
 
         public Animator Animator => _animator;
         public Transform MoveTransform => _moveTransform;
-        
-        protected override void OnAwake()
-        {
-        }
     }
 }

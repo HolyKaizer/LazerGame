@@ -9,11 +9,12 @@ using Core.Interfaces.Models;
 
 namespace Core.Controllers
 {
-    public sealed class LocationController : BaseContainerLoaderController<ILocationContainer>
+    public sealed class LocationController : BaseContainerLoaderController<ILocationContainer>, IUpdatable
     {
         private readonly ILocationModel _locationModel;
         private readonly IDictionary<string, IController> _controllers = new Dictionary<string, IController>();
-
+        private readonly ICollection<IUpdatable> _controllersToUpdate = new HashSet<IUpdatable>();
+        
         public LocationController(IMain main, IRootContainerHolder holder, ILocationModel locationModel) : base(main, holder.GetContainerRoot(locationModel.Id), locationModel.GetConfig<IAddressablesPrefabConfig>())
         {
             _locationModel = locationModel;
@@ -37,7 +38,17 @@ namespace Core.Controllers
                     : ControllerFactoryManager.Factory.Build<IController>(model.GetConfig<ITypedConfig>().Type, _main, model);
 
                 controller.Init();
+                
                 _controllers.Add(model.Id, controller);
+                if (controller is IUpdatable updatable) _controllersToUpdate.Add(updatable);
+            }
+        }
+
+        public void Update(float dt)
+        {
+            foreach (var updatable in _controllersToUpdate)
+            {
+                updatable.Update(dt);
             }
         }
 

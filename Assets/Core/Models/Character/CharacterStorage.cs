@@ -10,18 +10,27 @@ namespace Core.Models.Character
         private readonly string _id;
         private readonly IDictionary<string, object> _curStorage = new Dictionary<string, object>(64);
         
-        public CharacterStorage(string id)
+        public CharacterStorage(string id, IDictionary<string, object> rawSave = null)
         {
+            if (rawSave != null)
+            {
+                Load(rawSave);
+            }
+
             _id = id;
         }
 
-        public void Load(IDictionary<string, object> rawData)
+        private void Load(IDictionary<string, object> rawSave)
         {
-            foreach (var kvp in rawData)
+            foreach (var kvp in rawSave)
             {
-                _curStorage[kvp.Key] = kvp.Value is IBuildable buildable
-                    ? buildable.BuildItem(rawData.TryGetNode(kvp.Key))
-                    : kvp.Value;
+                var value = kvp.Value;
+                if (kvp.Value is IDictionary<string, object> buildNode)
+                {
+                    value = ModelFactoryManager.Factory.Build<IBuildable>(buildNode.GetString(Consts.Type), buildNode);
+                }
+
+                _curStorage[kvp.Key] = value;
             }
         }
 
@@ -30,6 +39,7 @@ namespace Core.Models.Character
             if (!_curStorage.TryGetValue(id, out var value))
             {
                 value = ModelFactoryManager.Factory.SimpleBuild<T>(args);
+                _curStorage[id] = value;
             }
 
             return (T) value;
@@ -62,11 +72,14 @@ namespace Core.Models.Character
             return tValue;
         }
 
-        public IDictionary<string, object> Save(IDictionary<string, object> data)
+        public IDictionary<string, object> Save()
         {
-            foreach (var kvp in _curStorage)
+            var data = new Dictionary<string, object>(_curStorage.Count);
+            foreach (var storageItemKvp in _curStorage)
             {
-                data[kvp.Key] = kvp.Value is ISave save ? save : kvp.Value;
+                data[storageItemKvp.Key] = storageItemKvp.Value is ISave save 
+                    ? save.Save() 
+                    : storageItemKvp.Value;
             }
 
             return data;

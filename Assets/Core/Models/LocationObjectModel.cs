@@ -11,11 +11,13 @@ namespace Core.Models
     public abstract class LocationObjectModel : BaseModel<ILocationObjectConfig>, ILocationObjectModel 
     {
         public LocationObjectState CurrentState { get; private set; }
-        public event Action<LocationObjectState, ILocationObjectModel> ChangedState;
-        public event Action<ILocationObjectModel> ObjectDestroyed;
 
-        protected LocationObjectModel(string id, ILocationObjectConfig config) : base(id, config)
+        protected LocationObjectModel(string id, ILocationObjectConfig config, IDictionary<string, object> rawData = null) : base(id, config)
         {
+            if (rawData != null)
+            {
+                CurrentState = (LocationObjectState) rawData.GetInt(Consts.CurrentState);
+            }
         }
 
         public override IDictionary<string, object> Save(IDictionary<string, object> rawData)
@@ -26,11 +28,6 @@ namespace Core.Models
             };
             rawData.Add(Id, data);
             return rawData;
-        }
-
-        public override void Load(IDictionary<string, object> rawData)
-        {
-            CurrentState = (LocationObjectState) rawData.GetInt(Consts.CurrentState);
         }
     }
 }

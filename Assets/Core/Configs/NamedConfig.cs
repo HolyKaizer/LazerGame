@@ -28,12 +28,14 @@ namespace Core.Configs
 #if UNITY_EDITOR
         private IEnumerable<string> _ids;
         private IEnumerable<string> _tagsToDropdown;
-        private void OnValidate()
+
+        private void OnEnable()
         {
-            var config = AssetDatabase.LoadAssetAtPath<ModelIdsSO>("Assets/Content/Editor/ModelEditorInfos.asset");
-            _ids = config.ModelIds;
-            _tagsToDropdown = config.Tags;
+                var config = AssetDatabase.LoadAssetAtPath<ModelIdsSO>("Assets/Content/Editor/ModelEditorInfos.asset");
+                _ids = config.ModelIds;
+                _tagsToDropdown = config.Tags;
         }
+
 
         private IEnumerable<string> GetModelIds() => _ids;
         private IEnumerable<string> GetModelTags() => _tagsToDropdown;

@@ -15,8 +15,10 @@ namespace Core.Loading.Steps
 
         protected override IEnumerator OnLoad()
         {
-            _context.UserData = new UserData(Consts.UserDataId, _context.MainConfig);
-            
+            _context.UserData = _context.RawSaves != null 
+                ? new UserData(Consts.UserDataId, _context.MainConfig, _context.RawSaves)
+                : new UserData(Consts.UserDataId, _context.MainConfig);
+
             yield break;
         }
     }

@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Core.Interfaces.Configs 
 {
-    public interface ILocationTrajectoryConfig : ITypedConfig
+    public interface ILocationTrajectoryConfig : INamedConfig
     {
         List<Vector3> MovePoints { get; }
     }

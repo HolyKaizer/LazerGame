@@ -23,10 +23,6 @@ namespace Core.Controllers
 
         protected override void OnInit()
         {
-            if (_context.RawSaves != null)
-            {
-                _context.UserData.Load(_context.RawSaves);
-            }
             _inputController.Init();
 
             AddAndInitStartControllers();

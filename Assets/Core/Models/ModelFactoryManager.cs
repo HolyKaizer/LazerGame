@@ -4,6 +4,7 @@ using Core.Interfaces;
 using Core.Interfaces.Configs;
 using Core.Interfaces.Models;
 using Core.Models.Character;
+using Core.Models.Enemy;
 using Core.Models.SceneLogic;
 using UnityEngine;
 
@@ -19,6 +20,18 @@ namespace Core.Models
             RegisterSceneLogics();
             RegisterModels();
             RegisterSimpleTypes();
+            RegisterBuildableItems();
+            RegisterMoveProcessors();
+        }
+
+        private static void RegisterMoveProcessors()
+        {
+            Factory.AddVariantFunc<IMoveProcessor>(Consts.Trajectory, objects => new TrajectoryMoveProcessor(objects.GetValue<IMovableCharacter>(0)));
+        }
+
+        private static void RegisterBuildableItems()
+        {
+            Factory.AddVariantFunc<IBuildable>(Consts.Position, objects => new ModelPosition().BuildItem(objects.GetNode(0)));
         }
 
         private static void RegisterSimpleTypes()
@@ -35,7 +48,10 @@ namespace Core.Models
         private static void RegisterModels()
         {
             Factory.AddVariantFunc<IModel>(Consts.Scene, objects => new SceneModel(objects.GetValue<UserData>(0), objects.GetValue<ISceneConfig>(1)));
-            Factory.AddVariantFunc<IModel>(Consts.Location, objects => new LocationModel(objects.GetValue<UserData>(0), objects.GetValue<ILocationConfig>(1)));
+            Factory.AddVariantFunc<IModel>(Consts.Location, objects => new LocationModel(objects.GetValue<UserData>(0), objects.GetValue<ILocationConfig>(1), objects.TryGetNode(2)));
+           
+            Factory.AddVariantFunc<ICharacterModel>(Consts.MovableCharacter, objects => new MovableCharacter(objects.GetValue<UserData>(0), objects.GetValue<IMovableCharacterConfig>(1), objects.TryGetNode(2)));
+
             Factory.AddVariantFunc<ILocationObjectModel>(Consts.StringEmpty, objects => new SimpleLocationObject(objects.GetValue<UserData>(0), objects.GetValue<ILocationObjectConfig>(1)));
             Factory.AddVariantFunc<ILocationObjectModel>(Consts.Simple, objects => new SimpleLocationObject(objects.GetValue<UserData>(0), objects.GetValue<ILocationObjectConfig>(1)));
             Factory.AddVariantFunc<ILocationObjectModel>(Consts.LocationObject, objects => new SimpleLocationObject(objects.GetValue<UserData>(0), objects.GetValue<ILocationObjectConfig>(1)));

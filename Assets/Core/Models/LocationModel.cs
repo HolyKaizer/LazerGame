@@ -15,15 +15,15 @@ namespace Core.Models {
         private readonly IDictionary<string, ILocationObjectModel> _locationObjects;
         private readonly IDictionary<string, ICharacterModel> _locationCharacters;
 
-        public LocationModel(UserData userData, ILocationConfig config) : base(config.Id, config)
+        public LocationModel(UserData userData, ILocationConfig config, IDictionary<string, object> rawSaves = null) : base(config.Id, config)
         {
             var locationObjectConfigs = config.GetLocationObjectConfigs();
             _locationObjects = new Dictionary<string, ILocationObjectModel>(locationObjectConfigs.Count);
             var charactersConfigs = config.GetLocationCharactersConfigs();
             _locationCharacters = new Dictionary<string, ICharacterModel>(charactersConfigs.Count);
 
-            ModelCollectionHelper.AddModelsToCollection(_locationObjects, userData, locationObjectConfigs);
-            ModelCollectionHelper.AddModelsToCollection(_locationCharacters, userData, charactersConfigs);
+            ModelCollectionHelper.AddModelsToCollection(_locationObjects, userData, locationObjectConfigs, rawSaves.TryGetNode(Consts.LocationObjects));
+            ModelCollectionHelper.AddModelsToCollection(_locationCharacters, userData, charactersConfigs, rawSaves.TryGetNode(Consts.Characters));
         }
 
         public IEnumerable<ILocationObjectModel> GetLocationObjects()
@@ -57,13 +57,6 @@ namespace Core.Models {
             
             rawData.Add(Id, data);
             return rawData;
-        }
-        
-        public override void Load(IDictionary<string, object> rawData)
-        {
-            CurrentState = (LocationState) rawData.GetInt(Consts.CurrentState);
-            ModelCollectionHelper.LoadCollection(_locationObjects, rawData, Consts.LocationObjects);
-            ModelCollectionHelper.LoadCollection(_locationCharacters, rawData, Consts.Characters);
         }
     }
 }

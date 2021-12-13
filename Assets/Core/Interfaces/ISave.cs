@@ -4,6 +4,6 @@ namespace Core.Interfaces
 {
     public interface ISave
     {
-        IDictionary<string, object> Save(IDictionary<string, object> data);
+        IDictionary<string, object> Save();
     }
 }

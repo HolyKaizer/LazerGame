@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Core.Extensions;
 using Core.Interfaces;
 using Core.Interfaces.Configs;
@@ -7,29 +8,54 @@ namespace Core.Models.Character
 {
     public sealed class TrajectoryMoveProcessor : IMoveProcessor
     {
-        private IMovableModel _model;
-        private ITrajectoryMoveConfig _trajectoryMoveConfig;
+        private readonly ITrajectoryMoveConfig _trajectoryMoveConfig;
 
-        private int _curPointIndex;
-        private Vector3 _curPoint;
+        private int _curPointIndex = 0;
         private Vector3 _nextPoint;
+        
         private readonly ModelPosition _position;
+        private readonly List<Vector3> _movePoints;
 
-        public TrajectoryMoveProcessor(IMovableModel model)
+        public TrajectoryMoveProcessor(IMovableCharacter character, IDictionary<string, object> rawSave = null)
         {
-            _model = model;
-            _position = model.Storage.GetOrCreate<ModelPosition>(Consts.Position);
-            _trajectoryMoveConfig = _model.GetConfig<ITrajectoryMoveConfig>();
+            _position = character.Storage.GetOrCreate<ModelPosition>(Consts.Position, character.GetConfig<ICharacterConfig>().StartPosition);
+            _trajectoryMoveConfig = character.GetConfig<ITrajectoryMoveConfig>();
+            _movePoints = _trajectoryMoveConfig.Trajectory.MovePoints;
+            
+            if (rawSave != null)
+            {
+                _curPointIndex = rawSave.GetInt(Consts.CurPointIndex);
+            }
         }
         
         public void ProcessMove(float dt)
         {
-            _curPoint = _trajectoryMoveConfig.Trajectory.MovePoints[_curPointIndex];
-            _nextPoint = _trajectoryMoveConfig.Trajectory.MovePoints[_curPointIndex + 1];
+            var pos = _position.Get();
+            _nextPoint = _movePoints[Mathf.Min(_movePoints.Count, _curPointIndex + 1)];
 
-            var position = Vector3.MoveTowards(_curPoint, _nextPoint, 
+            var towards = Vector3.MoveTowards(pos, _nextPoint, 
                 dt * _trajectoryMoveConfig.MoveSpeed);
+
+            if (pos == _nextPoint)
+            {
+                _curPointIndex++;
+            }
+
+            if (_curPointIndex == _movePoints.Count - 1)
+            {
+                _curPointIndex = 0;
+            }
             
+            _position.Set(towards);
+        }
+
+        public IDictionary<string, object> Save()
+        {
+            var data = new Dictionary<string, object>(1)
+            {
+                {Consts.CurPointIndex, _curPointIndex}
+            };
+            return data;
         }
     }
 }

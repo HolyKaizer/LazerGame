@@ -6,8 +6,7 @@ namespace Core.Interfaces.Models
     {
         T Get<T>(string id);
         void Set<T>(string id, T value);
-        IDictionary<string, object> Save(IDictionary<string, object> data);
+        IDictionary<string, object> Save();
         T GetOrCreate<T>(string id, params object[] args);
-        void Load(IDictionary<string, object> rawData);
     }
 }

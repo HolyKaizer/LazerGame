@@ -69,6 +69,10 @@ MonoBehaviour:
     m_Address: prefab_EnemyMelee
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: 9ad7acb5cb8cf7c4788288ec565beb8b
+    m_Address: preafab_TestCharacter
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: bce6376dfab3d0e4f88400b4e421cf0f, type: 2}
   m_SchemaSet:

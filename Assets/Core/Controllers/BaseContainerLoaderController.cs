@@ -11,9 +11,10 @@ namespace Core.Controllers
     public abstract class BaseContainerLoaderController<TContainer> : BaseController where TContainer : IContainer
     {
         protected TContainer Container { get; private set; }     
+        protected bool IsContainerLoaded { get; private set; }
+
         protected readonly IMain _main;
         private readonly Transform _containerRoot;
-
         private readonly IAddressablesPrefabConfig _addressablesConfig;
 
         protected BaseContainerLoaderController(IMain main, Transform containerRoot, IAddressablesPrefabConfig addressablesConfig)
@@ -43,6 +44,7 @@ namespace Core.Controllers
             {
                 Container = container;
                 OnContainerLoaded();
+                IsContainerLoaded = true;
             }
             else
             {

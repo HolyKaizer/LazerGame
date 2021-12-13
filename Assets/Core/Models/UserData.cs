@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using Core.Extensions;
 using Core.Interfaces;
@@ -14,11 +13,15 @@ namespace Core.Models
 
         private readonly IDictionary<string, IModel> _models = new Dictionary<string, IModel>();
         
-        public UserData(string id, IMainConfig config) : base(id, config)
+        public UserData(string id, IMainConfig config, IDictionary<string, object> rawSaveData = null) : base(id, config)
         {
             foreach (var startConfig in config.GetStartConfigs())
             {
-                _models.Add(startConfig.Id, ModelFactoryManager.Factory.Build<IModel>(startConfig.Type, this, startConfig));
+                var rawData = rawSaveData.TryGetNode(startConfig.Id);
+                var model = rawData.Count > 0
+                    ? ModelFactoryManager.Factory.Build<IModel>(startConfig.Type, this, startConfig, rawData)
+                    : ModelFactoryManager.Factory.Build<IModel>(startConfig.Type, this, startConfig);
+                _models.Add(startConfig.Id, model);
             }
         }
 
@@ -29,14 +32,6 @@ namespace Core.Models
                 model.Save(rawData);
             }
             return rawData;
-        }
-
-        public override void Load(IDictionary<string, object> rawData)
-        {
-            foreach (var kvp in _models)
-            {
-                kvp.Value.Load(rawData.TryGetNode(kvp.Key));
-            }
         }
 
         public void AddModel(IModel model)

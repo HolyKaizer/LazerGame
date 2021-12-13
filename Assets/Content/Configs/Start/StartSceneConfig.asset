@@ -15,9 +15,5 @@ MonoBehaviour:
   _id: main_scene
   _tags:
   - start
-  _scenesToLoad:
-  - m_AssetGUID: 7e401ca46e346a142993c40e7472a09d
-    m_SubObjectName: 
-    m_SubObjectType: 
-    m_EditorAssetChanged: 0
+  _scenesToLoad: []
   _logicId: start_scene_logic
