@@ -1,16 +1,11 @@
-using Core.Interfaces;
+using Core.Extensions;
 using UnityEngine;
-using UnityEngine.AddressableAssets;
 
 namespace Core.Configs.Models
 {
-    public abstract class CharacterConfig : TypedConfig, ICharacterConfig
+    [CreateAssetMenu(menuName = "EndlessSoftware/CharacterConfig", fileName = "CharacterConfig")]
+    public sealed class CharacterConfig : BaseCharacterConfig
     {
-        public AssetReference AddressablesPrefab => _addressablePrefab;
-
-        public Vector3 StartPosition => _startPosition;
-
-        [SerializeField] private AssetReference _addressablePrefab;
-        [SerializeField] private Vector3 _startPosition;
+        public override string Type => Consts.Character;
     }
 }

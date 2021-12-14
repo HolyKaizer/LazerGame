@@ -1,7 +1,6 @@
 namespace Core.Interfaces.Configs
 {
-    public interface INamedConfig : IConfig
+    public interface INamedConfig : IConfig, IIdentified
     {
-        string Id { get; }
     }
 }

@@ -3,6 +3,7 @@ using Core.Extensions;
 using Core.Interfaces;
 using Core.Interfaces.Configs;
 using Core.Interfaces.Controllers;
+using Core.Interfaces.Systems;
 
 namespace Core.Controllers
 {
@@ -13,12 +14,14 @@ namespace Core.Controllers
         private readonly IController _inputController;
         private readonly ILoaderContext _context;
         private readonly IMain _main;
+        private readonly IUpdatableSystem _controllersSystem;
 
         public EntryGameController(IMain main)
         {
             _context = main.LoaderContext;
             _main = main;
             _inputController = new InputController(main.MainConfig.ActionAsset.FindActionMap(Consts.Player), main.InputViewModel.RotateInputViewModel);
+            _controllersSystem = _main.Engine.GetSystem<IUpdatableSystem>(Consts.ControllersSystem);
         }
 
         protected override void OnInit()
@@ -40,18 +43,16 @@ namespace Core.Controllers
                     : ControllerFactoryManager.Factory.Build<IController>(config.Type, _main, model);
                
                 controller.Init();
-                _startControllers.Add(controller);
+                AddController(controller);
             }
         }
 
-        public void Update(float dt)
+        private void AddController(IController controller)
         {
-            if(!_isInited) return;
-            
-            foreach (var controller in _startControllers)
+            _startControllers.Add(controller);
+            if (controller is IUpdatable updatable)
             {
-                if(controller is IUpdatable updatable) 
-                    updatable.Update(dt);
+                _controllersSystem.Add(updatable);
             }
         }
         

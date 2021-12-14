@@ -18,7 +18,7 @@ namespace Core.Configs.Models
         public ILocationTrajectoryConfig LocationTrajectoryConfig => _locationTrajectoryConfig;
 
         [SerializeField] private LocationObjectConfig[] _locationObjectConfigs;
-        [SerializeField] private CharacterConfig[] _locationCharacters;
+        [SerializeField] private BaseCharacterConfig[] _locationCharacters;
         [SerializeField] private AssetReference _addressablePrefab;
         [SerializeField] private LocationTrajectoryConfig _locationTrajectoryConfig;
     }

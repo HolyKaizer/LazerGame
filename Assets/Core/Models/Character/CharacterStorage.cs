@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Core.Extensions;
 using Core.Interfaces;
@@ -42,7 +43,7 @@ namespace Core.Models.Character
                 _curStorage[id] = value;
             }
 
-            return (T) value;
+            return ConvertItem<T>(value);
         }
         
         public void Set<T>(string id, T value)
@@ -83,6 +84,14 @@ namespace Core.Models.Character
             }
 
             return data;
+        }
+        
+        private static T ConvertItem<T>(object item)
+        {
+            if(item is IConvertible)
+                return (T) Convert.ChangeType(item, typeof(T));
+
+            return (T) item;
         }
     }
 }

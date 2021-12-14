@@ -15,6 +15,7 @@ namespace Core.Loading
             _loadingSteps.Add(new JsonReaderStep(loaderContext, main)); 
             _loadingSteps.Add(new RawSaveCreationStep(loaderContext, main));
             _loadingSteps.Add(new ConfigsCreationStep(loaderContext, main));
+            _loadingSteps.Add(new EngineInitializationStep(loaderContext, main));
             _loadingSteps.Add(new ModelCreationStep(loaderContext, main));
             _loadingSteps.Add(new ContentPreloadingStep(loaderContext, main));
             _loadingSteps.Add(new EntryControllerCreationStep(loaderContext, main));

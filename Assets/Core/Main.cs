@@ -22,6 +22,7 @@ namespace Core
         public ILoadSceneManager LoadSceneManager { get; private set; }
         public IMainSceneContainer MainSceneContainer { get; private set; }
         public IUserData UserData => LoaderContext.UserData;
+        public IEngine Engine { get; private set; }
 
         [SerializeField] private MainConfig _mainConfig;
 
@@ -32,7 +33,7 @@ namespace Core
             DontDestroyOnLoad(gameObject);
             
             FactoryManager.Init();
-            
+            Engine = new Engine();
             LoadSceneManager = new LoadSceneManager(this);
             var context = new LoaderContext();
             LoaderContext = context;
@@ -66,9 +67,11 @@ namespace Core
         {
             if (SplashScreen is {IsInited: true})
                 SplashScreen.Update(Time.deltaTime);
-            
+
             if (IsLoadingCompleted)
-                LoaderContext?.EntryGameController?.Update(Time.deltaTime);
+            {
+                Engine.Update(Time.deltaTime);                
+            }
         }
 
         private void OnDestroy()

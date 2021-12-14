@@ -5,7 +5,8 @@ using Core.Interfaces.Configs;
 using Core.Interfaces.Models;
 using Core.Structs;
 
-namespace Core.Models {
+namespace Core.Models
+{
     public class LocationModel : BaseModel<ILocationConfig>, ILocationModel 
     {
         public LocationState CurrentState { get; private set; }

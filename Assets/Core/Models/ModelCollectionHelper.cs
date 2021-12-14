@@ -28,7 +28,11 @@ namespace Core.Models
                     : ModelFactoryManager.Factory.Build<TModel>(config.Type, userData, config);
                 
                 collection.Add(model.Id, model);
-                userData.AddModel(model);
+                
+                if (model is IUpdatable updatable)
+                {
+                    userData.UpdateSystem.Add(updatable);
+                } 
             }
         }
     }

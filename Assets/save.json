@@ -1,25 +1,4 @@
 {
-   "enemy_melee" : {
-      "current_state" : 0
-   },
-   "enemy_hostage" : {
-      "current_state" : 0
-   },
-   "player_character" : {
-      "storage" : {
-         "position" : {
-            "type" : "position",
-            "position" : [
-               -0.8868818,
-               5,
-               0
-            ]
-         }
-      },
-      "move_processor" : {
-         "cur_point_index" : 4
-      }
-   },
    "test_location" : {
       "current_state" : 0,
       "location_objects" : {
@@ -36,14 +15,12 @@
                "position" : {
                   "type" : "position",
                   "position" : [
-                     -0.8868818,
-                     5,
+                     2,
+                     1.237592,
                      0
                   ]
-               }
-            },
-            "move_processor" : {
-               "cur_point_index" : 4
+               },
+               "cur_point_index" : 0
             }
          }
       }

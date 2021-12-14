@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using Core.Extensions;
 using Core.Interfaces;
 using Core.Interfaces.Configs;
+using Sirenix.OdinInspector;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
@@ -15,7 +16,6 @@ namespace Core.Configs
         public IList<AssetReference> ScenesToLoad => _scenesToLoad;
         public override string Type => Consts.Scene;
         public string LogicId => _logicId;
-        
         
         [SerializeField] private AssetReference[] _scenesToLoad;
         [SerializeField] private string _logicId;

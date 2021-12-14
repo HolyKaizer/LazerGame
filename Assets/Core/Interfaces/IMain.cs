@@ -15,6 +15,7 @@ namespace Core.Interfaces
         IMainSceneContainer MainSceneContainer { get; }
         IUserData UserData { get; }
         ISplashScreen SplashScreen { get; }
+        IEngine Engine { get; }
         void CompleteLoadingStep();
     }
 }
