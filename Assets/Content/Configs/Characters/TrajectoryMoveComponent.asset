@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c519adf1210ab74f9f72e234157d724, type: 3}
   m_Name: TrajectoryMoveComponent
   m_EditorClassIdentifier: 
-  _moveSpeed: 0
-  _rotationSpeed: 0
-  _trajectory: {fileID: 0}
+  _moveSpeed: 5.1
+  _rotationSpeed: 2
+  _trajectory: {fileID: 11400000, guid: 9c33fc778c81a2f4dbef8c6ca03e426a, type: 2}
