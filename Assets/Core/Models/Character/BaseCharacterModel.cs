@@ -63,6 +63,9 @@ namespace Core.Models.Character
 
         public override IDictionary<string, object> Save(IDictionary<string, object> rawData)
         {
+            foreach (var processor in _componentProcessors.Values) 
+                processor.ConsolidateData();
+
             IDictionary<string, object> modelData = new Dictionary<string, object> {[Consts.Storage] = Storage.Save()};
             modelData = OnSave(modelData);
             rawData[Id] = modelData;

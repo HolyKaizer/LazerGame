@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using Core.Extensions;
 using Core.Interfaces;
 using Core.Interfaces.Configs;
+using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 
@@ -17,9 +18,13 @@ namespace Core.Configs.Models
 
         public ILocationTrajectoryConfig LocationTrajectoryConfig => _locationTrajectoryConfig;
 
+        [Title("Put Location Objects here")]
         [SerializeField] private LocationObjectConfig[] _locationObjectConfigs;
+        [Title("Put Characters here")]
         [SerializeField] private BaseCharacterConfig[] _locationCharacters;
+        [Title("Location Prefab")]
         [SerializeField] private AssetReference _addressablePrefab;
+        [Title("Player Trajectory")]
         [SerializeField] private LocationTrajectoryConfig _locationTrajectoryConfig;
     }
 }

@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using Core.Extensions.Editor;
 using Core.Interfaces.Configs;
@@ -11,11 +10,13 @@ namespace Core.Configs
     public abstract class NamedConfig : ScriptableObject, INamedConfig
     {
 #if UNITY_EDITOR
-        [ValueDropdown("GetModelIds")]
+            [Title("Model Id")] 
+            [ValueDropdown("GetModelIds")]
 #endif
         [SerializeField] private string _id;
 #if UNITY_EDITOR
-        [ValueDropdown("GetModelTags", IsUniqueList = true, DropdownTitle = "Select Tag")]
+            [Title("Tags")] 
+            [ValueDropdown("GetModelTags", IsUniqueList = true, DropdownTitle = "Select Tag")]
 #endif
         [SerializeField] private List<string> _tags;
 

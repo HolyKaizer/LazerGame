@@ -30,5 +30,6 @@ namespace Core.Extensions
         public const string LogicSystem = "logic_system";
         public const string ControllersSystem = "controllers_system";
         public const string PhysicsSystem = "physics_system";
+        public const string Value = "value";
     }
 }

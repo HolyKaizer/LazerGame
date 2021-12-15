@@ -8,28 +8,31 @@ namespace Core.Models.Character
 {
     public sealed class TrajectoryMoveLogicProcessor : BaseLogicProcessor
     {
-        public override bool IsFixedUpdate => true;
-        
+        public override bool IsFixedUpdate => false;
+
         private readonly ITrajectoryMoveLogicComponent _component;
         private readonly ModelPosition _position;
 
         private int _curPointIndex;
         private Vector3 _nextPoint;
-        
+        private readonly ICharacterStorage _storage;
+
 
         public TrajectoryMoveLogicProcessor(ICharacterModel character)
         {
             _component = character.GetConfig<ICharacterConfig>().GetComponent<ITrajectoryMoveLogicComponent>(Consts.MoveComponent);
 
-            _position = character.Storage.GetOrCreate<ModelPosition>(Consts.Position, character.GetConfig<ICharacterConfig>().StartPosition);
-            _curPointIndex = character.Storage.GetOrCreate<int>(Consts.CurPointIndex, 0);
-        }
-
-        protected override void OnInit()
-        {
+            _storage = character.Storage;
+            _position = _storage.GetOrCreate<ModelPosition>(Consts.Position, character.GetConfig<ICharacterConfig>().StartPosition);
+            _curPointIndex = _storage.GetOrCreate<int>(Consts.CurPointIndex, 0);
         }
         
-        protected override void OnFixedUpdate(float fixedDt)
+        public override void ConsolidateData()
+        {
+            _storage.Set(Consts.CurPointIndex, _curPointIndex);
+        }
+        
+        protected override void OnUpdate(float fixedDt)
         {
             var pos = _position.Get();
             _nextPoint = _component.Trajectory.MovePoints[Mathf.Min(_component.Trajectory.MovePoints.Count, _curPointIndex + 1)];
@@ -49,9 +52,8 @@ namespace Core.Models.Character
             
             _position.Set(towards);
         }
-
-        protected override void OnDispose()
-        {
-        }
+        
+        protected override void OnInit() { }
+        protected override void OnDispose() { }
     }
 }

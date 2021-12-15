@@ -17,7 +17,10 @@ namespace Core.Configs
         public override string Type => Consts.Scene;
         public string LogicId => _logicId;
         
-        [SerializeField] private AssetReference[] _scenesToLoad;
+        [Title("Scenes to load at Start")]
+        [SerializeField] private AssetReference[] _scenesToLoad;    
+        [Space]
+        [Title("Logic type proceed when scene is loaded")]
         [SerializeField] private string _logicId;
     }
 }

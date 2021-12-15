@@ -1,9 +1,10 @@
 using System;
 using System.Collections.Generic;
+using Core.Input;
 using UnityEditor;
 using UnityEngine;
 
-namespace Core.Input
+namespace Core.Editor
 {
     internal static class HotKeysEditorMenu
     {
@@ -12,7 +13,14 @@ namespace Core.Input
         {
             ScriptingDefineSymbolsEditor.ShowWindow();
         }
+        
+        [MenuItem("ES/TrajectoryBuilderWindow &T", false, 1500)]
+        private static void OpenTrajectoryBuild()
+        {
+            TrajectoryBuildWindow.ShowWindow();
+        }
     }
+
 
     public class ScriptingDefineSymbolsEditor : EditorWindow
     {

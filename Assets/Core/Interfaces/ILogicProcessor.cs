@@ -6,6 +6,7 @@ namespace Core.Interfaces
     {
         bool IsFixedUpdate { get; }
         void Init();
+        void ConsolidateData();
         void Dispose();
         void Pause();
     }

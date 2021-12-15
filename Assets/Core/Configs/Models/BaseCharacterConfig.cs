@@ -1,8 +1,8 @@
-using System;
 using System.Collections.Generic;
 using Core.Extensions;
 using Core.Interfaces;
 using Core.Interfaces.Configs;
+using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 
@@ -30,13 +30,16 @@ namespace Core.Configs.Models
 #endif
             return default;
         }
-
+        [Space]
+        [Title("Character Components")]
+        [SerializeField] private List<BaseLogicComponent> _components;
+        [Space]
+        [Title("Character Prefab")]
         [SerializeField] private AssetReference _addressablePrefab;
+        [Title("Initial Location Position")]
         [SerializeField] private Vector3 _startPosition;
         
-        [SerializeField] private List<BaseLogicComponent> _components;
         private Dictionary<string,ILogicComponent> _componentsDict;
-        
         public void OnAfterDeserialize()
         {
             _componentsDict = new Dictionary<string, ILogicComponent>(_components.Count);
@@ -45,7 +48,6 @@ namespace Core.Configs.Models
                 _componentsDict[component.Id] = component;
             }
         }
-        
         public void OnBeforeSerialize() { }
     }
 }

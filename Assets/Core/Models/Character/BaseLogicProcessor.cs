@@ -16,6 +16,8 @@ namespace Core.Models.Character
             OnInit();
         }
 
+        public abstract void ConsolidateData();
+
         public void Dispose()
         {
             if(_isInited) return;
