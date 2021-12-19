@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using Core.Configs;
 using Sirenix.OdinInspector;
 using UnityEditor;
@@ -8,35 +7,18 @@ using UnityEngine;
 namespace Core.Editor
 {
     [Serializable]
-    public sealed class CreationMode : TrajectoryModeBase
+    public sealed class CreationTrajectoryBuilderMode : TrajectoryEditorBuilderBase
     {
-        [OnValueChanged("OnBecameVisible")]
         public bool Enabled;
-
-        [SerializeField] 
-        [PropertyOrder(0)]
-        [DisableIf("_isInCreationMode")]
-        [OnValueChanged("OnTransformChanged")]
-        [Title("Put Root LocationTransform Here")]
-        [SceneObjectsOnly]
-        private Transform _rootLocationTransform;
-
-
-        [ShowIfGroup("_rootLocationTransform")]
-        [DisableInEditorMode]
-        [SerializeField] private List<Vector3> _points;
-       
+        
         [Space]
         [SerializeField]
         [PropertyOrder(2)]
-        [ShowIf("@this._points != null && this._points.Count > 0")]
+        [ShowIf("@this._points != null && this._points.Count > 0 && !this._isInCreationMode")]
         [Title("Enter Trajectory Name")]
         [SceneObjectsOnly]
         private string _trajectoryName;
-
-        private bool _isInCreationMode;
-        private Vector2 _curPosPoint;
-
+        
         [HideIf("_isInCreationMode")]
         [ShowIfGroup("_rootLocationTransform")]
         [Button("Start Creating Points", ButtonSizes.Large)]
@@ -71,6 +53,8 @@ namespace Core.Editor
 
         public void OnGUI()
         {
+            if(!Enabled) {OnBecameInvisible();}
+
             if(!_isInCreationMode) return;
             
             var e = Event.current;
@@ -86,56 +70,19 @@ namespace Core.Editor
             }
         }
 
-        private void UpdateSceneView(SceneView sceneView)
+        protected override void OnTrackingEnds(bool isCanceled, Event curEvent)
         {
-            DrawPointsOnScene(_rootLocationTransform, _points);
-
-            if(!_isInCreationMode) return;
-
-            Camera cam = SceneView.lastActiveSceneView.camera;
-            _curPosPoint = Event.current.mousePosition;
-            _curPosPoint.y = cam.pixelHeight - _curPosPoint.y;
-            _curPosPoint = cam.ScreenToWorldPoint(_curPosPoint);
-            _curPosPoint -= (Vector2)_rootLocationTransform.position;
-            
-            var e = Event.current;
-            if(_isInCreationMode) 
-            {
-                if((e.type == EventType.MouseDown || e.type == EventType.MouseUp) && e.button == 0)
-                {
-                    OnTrackingEnds(false, e);
-                }
-            }
-            else
-            {
-                if(e.type == EventType.Layout || e.type == EventType.Repaint) return;
-
-                Event.current.Use();
-                Event.current = null;
-
-                ActiveEditorTracker.sharedTracker.isLocked = false;
-            }
-        }
-
-        private void OnTrackingEnds(bool revert, Event e) 
-        {
-            e.Use();
+            curEvent.Use();
             Event.current = null;
 
-            if (!revert)
+            if (!isCanceled)
             {
                 _points.Add(_curPosPoint);
             }
         }
 
-        public void OnDisable()
-        {
-            _rootLocationTransform = null;
-            ClearFields();
-        }
-
         [PropertyOrder(3)]
-        [ShowIf("@this._rootLocationTransform != null && this._points != null && this._points.Count > 0 && !string.IsNullOrEmpty(this._trajectoryName)")]
+        [ShowIf("@this._rootLocationTransform != null && this._points != null && this._points.Count > 0 && !string.IsNullOrEmpty(this._trajectoryName) && !this._isInCreationMode")]
         [Button("Create Trajectory", ButtonSizes.Large)]
         private void CreateTrajectory()
         {
@@ -146,18 +93,9 @@ namespace Core.Editor
             AssetDatabase.Refresh();
             EditorUtility.FocusProjectWindow ();
             Selection.activeObject = instance;
-            var serialized = new SerializedObject(instance);
-            var property = serialized.FindProperty("_points");
-            for (int i = 0; i < _points.Count; i++)
-            {
-                property.InsertArrayElementAtIndex(i);
-                serialized.ApplyModifiedProperties();
-                var element = property.GetArrayElementAtIndex(i);
-                element.vector3Value = _points[i];
-                serialized.ApplyModifiedProperties();
-            }
+            RefreshPointsOnCurAssets(instance);
         }
-        
+
         private void OnTransformChanged()
         {
             ClearFields();
@@ -165,10 +103,10 @@ namespace Core.Editor
 
         private void ClearFields()
         {
+            _points?.Clear();
             _isInCreationMode = false;
             _trajectoryName = string.Empty;
             _curPosPoint = Vector2.zero;
-            _points?.Clear();
             SceneView.duringSceneGui -= UpdateSceneView;
             if (_rootLocationTransform != null)
             {
@@ -182,8 +120,15 @@ namespace Core.Editor
             ClearFields();
         }
 
+        public void OnDisable()
+        {
+            _rootLocationTransform = null;
+            ClearFields();
+        }
+        
         public void OnBecameInvisible()
         {
+            _rootLocationTransform = null;
             ClearFields();        
         }
     }

@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _moveSpeed: 5.1
   _rotationSpeed: 2
-  _trajectory: {fileID: 11400000, guid: e8ec192ee2cff824ca02b03ebacca0c7, type: 2}
+  _trajectory: {fileID: 11400000, guid: 0f183f2b29e80d14bacc48c53aaf20a6, type: 2}
