@@ -87,6 +87,7 @@ TextureImporter:
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
+  ignoreMasterTextureLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -628,6 +629,28 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
+    nameFileIdTable:
+      enemy_mili_12: 6023588756911953517
+      enemy_mili_17: 3776628237970369014
+      enemy_mili_14: 3445753520747390062
+      enemy_mili_0: -1883488864358450688
+      enemy_mili_3: -444382589349695159
+      enemy_mili_15: -7705295919629772163
+      enemy_mili_16: -6241374440206677686
+      enemy_mili_6: 1880927209404618838
+      enemy_mili_11: -4716175734199829867
+      enemy_mili_10: -8401421284352893901
+      enemy_mili_9: 4616865319390619128
+      enemy_mili_7: 8940760136248612237
+      enemy_mili_2: 7750663318267986113
+      enemy_mili_18: 5194638010784409409
+      enemy_mili_4: 5469106720003215488
+      enemy_mili_13: 168677320344854097
+      enemy_mili_20: 1762911129024847177
+      enemy_mili_19: 3184428117836882924
+      enemy_mili_1: -3337445043626135747
+      enemy_mili_8: -6677396163887144411
+      enemy_mili_5: 6645614798497550615
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

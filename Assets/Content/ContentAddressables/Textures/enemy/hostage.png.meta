@@ -87,6 +87,7 @@ TextureImporter:
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
+  ignoreMasterTextureLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -628,6 +629,28 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
+    nameFileIdTable:
+      hostage_20: -4732436136668699874
+      hostage_11: -8108079679965973920
+      hostage_9: -6443099109969082518
+      hostage_10: 3189222629086923533
+      hostage_18: -6312421404178220496
+      hostage_14: -6753776270234810727
+      hostage_17: -8636677470573719249
+      hostage_13: -2287273528181972163
+      hostage_5: 3881551298286566125
+      hostage_2: 5017264299352234076
+      hostage_12: -1138003038047508356
+      hostage_16: -5518425696755850522
+      hostage_3: -1935398037838317016
+      hostage_4: 8356813012374637132
+      hostage_19: 6500965111831496386
+      hostage_0: -1811050060795910855
+      hostage_1: 2308051246334369521
+      hostage_15: -8714908611623966820
+      hostage_6: 8372275237997874516
+      hostage_7: -4651655214169037705
+      hostage_8: -420338492753644135
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
