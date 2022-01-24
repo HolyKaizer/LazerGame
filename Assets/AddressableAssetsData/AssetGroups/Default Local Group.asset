@@ -73,6 +73,10 @@ MonoBehaviour:
     m_Address: preafab_TestCharacter
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: 0b77e600ae4944a3e8489f580858e8ee
+    m_Address: prefab_TestPlayer
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: bce6376dfab3d0e4f88400b4e421cf0f, type: 2}
   m_SchemaSet:

@@ -1,13 +1,25 @@
 using Core.Interfaces;
+using Core.Interfaces.Configs;
+using Core.Interfaces.Models;
 
 namespace Core.Models.Character
 {
-    public abstract class BaseLogicProcessor : ILogicProcessor
+    public abstract class BaseLogicProcessor<TComponent> : ILogicProcessor where TComponent : ILogicComponent
     {
+        public abstract bool IsFixedUpdate { get; }
+
         private bool _isInited;
         private bool _isPaused;
-        public abstract bool IsFixedUpdate { get; }
         
+        protected readonly TComponent _component;
+        protected readonly ICharacterStorage _storage;
+
+        protected BaseLogicProcessor(ICharacterModel model, TComponent component)
+        {
+            _component = component;
+            _storage = model.Storage;
+        }
+
         public void Init()
         {
             if(_isInited) return;
@@ -25,7 +37,6 @@ namespace Core.Models.Character
             
             OnDispose();
         }
-
 
         public void Pause()
         {

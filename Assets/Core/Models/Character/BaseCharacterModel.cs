@@ -29,7 +29,7 @@ namespace Core.Models.Character
         {
             foreach (var component in components)
             {
-                var processor = ModelFactoryManager.Factory.Build<ILogicProcessor>(component.Id, this);
+                var processor = ModelFactoryManager.Factory.Build<ILogicProcessor>(component.LogicId, this);
                 _componentProcessors[component] = processor;
 
                 if (processor.IsFixedUpdate)

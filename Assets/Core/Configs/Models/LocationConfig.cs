@@ -16,15 +16,11 @@ namespace Core.Configs.Models
         public IReadOnlyCollection<ICharacterConfig> GetLocationCharactersConfigs() => _locationCharacters;
         public AssetReference AddressablesPrefab => _addressablePrefab;
 
-        public ILocationTrajectoryConfig LocationTrajectoryConfig => _locationTrajectoryConfig;
-
         [Title("Put Location Objects here")]
         [SerializeField] private LocationObjectConfig[] _locationObjectConfigs;
         [Title("Put Characters here")]
         [SerializeField] private BaseCharacterConfig[] _locationCharacters;
         [Title("Location Prefab")]
         [SerializeField] private AssetReference _addressablePrefab;
-        [Title("Player Trajectory")]
-        [SerializeField] private LocationTrajectoryConfig _locationTrajectoryConfig;
     }
 }

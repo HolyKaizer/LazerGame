@@ -18,6 +18,7 @@ MonoBehaviour:
   - test_location
   - main_scene
   - player_character
+  - test_character
   _tags:
   - has_controller
   - start

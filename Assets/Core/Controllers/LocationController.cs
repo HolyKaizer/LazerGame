@@ -60,6 +60,7 @@ namespace Core.Controllers
             {
                 controller.Dispose();
             }
+            _controllers.Clear();
         }
     }
 }

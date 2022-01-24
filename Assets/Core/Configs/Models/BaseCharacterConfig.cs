@@ -30,6 +30,7 @@ namespace Core.Configs.Models
 #endif
             return default;
         }
+        
         [Space]
         [Title("Character Components")]
         [SerializeField] private List<BaseLogicComponent> _components;

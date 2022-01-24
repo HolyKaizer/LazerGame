@@ -60,6 +60,7 @@ namespace Core.Controllers
         {
             _main.LoaderContext?.ContentManager?.BundleLoader?.ReleaseAsset(_addressablesConfig?.AddressablesPrefab.AssetGUID);
             Container = default;
+            IsContainerLoaded = false;
         }
     }
 }

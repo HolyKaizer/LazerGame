@@ -25,17 +25,17 @@ namespace Core.Models
 
         private static void RegisterLogicProcessors()
         {
-            Factory.AddVariantFunc<ILogicProcessor>(Consts.MoveComponent, objects => new TrajectoryMoveLogicProcessor(objects.GetValue<ICharacterModel>(0)));
+            Factory.AddVariantFunc<ILogicProcessor>(Consts.MoveProcessor, objects => new TrajectoryMoveLogicProcessor(objects.GetValue<ICharacterModel>(0)));
         }
 
         private static void RegisterBuildableItems()
         {
-            Factory.AddVariantFunc<IBuildable>(Consts.Position, objects => new ModelPosition().BuildItem(objects.GetNode(0)));
+            Factory.AddVariantFunc<IBuildable>(Consts.Position, objects => new SerializableVector3().BuildItem(objects.GetNode(0)));
         }
 
         private static void RegisterSimpleTypes()
         {
-            Factory.AddVariantFunc<ModelPosition>(objects => new ModelPosition(objects.GetValue<Vector3>(0)));
+            Factory.AddVariantFunc<ISerializableVector3>(objects => new SerializableVector3(objects.GetValue<Vector3>(0)));
             Factory.AddVariantFunc<int>(objects => objects.GetInt(0));
         }
         
@@ -51,6 +51,7 @@ namespace Core.Models
             Factory.AddVariantFunc<IModel>(Consts.Location, objects => new LocationModel(objects.GetValue<UserData>(0), objects.GetValue<ILocationConfig>(1), objects.TryGetNode(2)));
            
             Factory.AddVariantFunc<ICharacterModel>(Consts.Character, objects => new Character.Character(objects.GetValue<UserData>(0), objects.GetValue<ICharacterConfig>(1), objects.TryGetNode(2)));
+            Factory.AddVariantFunc<ICharacterModel>(Consts.Player, objects => new Character.Character(objects.GetValue<UserData>(0), objects.GetValue<ICharacterConfig>(1), objects.TryGetNode(2)));
 
             Factory.AddVariantFunc<ILocationObjectModel>(Consts.StringEmpty, objects => new SimpleLocationObject(objects.GetValue<UserData>(0), objects.GetValue<ILocationObjectConfig>(1)));
             Factory.AddVariantFunc<ILocationObjectModel>(Consts.Simple, objects => new SimpleLocationObject(objects.GetValue<UserData>(0), objects.GetValue<ILocationObjectConfig>(1)));

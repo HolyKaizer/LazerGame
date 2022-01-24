@@ -27,9 +27,12 @@ namespace Core.Extensions
         public const string CurPointIndex = "cur_point_index";
         public const string MoveProcessor = "move_processor";
         public const string MoveComponent = "move_component";
+        public const string RotationInputComponent = "rotation_input_component";
         public const string LogicSystem = "logic_system";
         public const string ControllersSystem = "controllers_system";
         public const string PhysicsSystem = "physics_system";
         public const string Value = "value";
+        public const string Rotation = "rotation";
+        public const string RotationInputProcessor = "rotation_input_processor";
     }
 }

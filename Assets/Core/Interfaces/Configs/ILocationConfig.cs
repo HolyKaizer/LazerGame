@@ -6,6 +6,5 @@ namespace Core.Interfaces.Configs
     {
         IReadOnlyCollection<ILocationObjectConfig> GetLocationObjectConfigs();
         IReadOnlyCollection<ICharacterConfig> GetLocationCharactersConfigs();
-        ILocationTrajectoryConfig LocationTrajectoryConfig { get; }
     }
 }

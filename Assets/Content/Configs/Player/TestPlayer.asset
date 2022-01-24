@@ -9,17 +9,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a7171ef3d9a740958a799a97e4518178, type: 3}
-  m_Name: TestCharacter
+  m_Script: {fileID: 11500000, guid: 45c3442d2afa49509dbb787726321471, type: 3}
+  m_Name: TestPlayer
   m_EditorClassIdentifier: 
-  _id: test_character
+  _id: player_character
   _tags:
   - has_controller
   _components:
-  - {fileID: 11400000, guid: 647ad42cce05dad43b6531c42cb91428, type: 2}
+  - {fileID: 11400000, guid: fdafd243f63924810832a6bb5f5fee61, type: 2}
   _addressablePrefab:
-    m_AssetGUID: 9ad7acb5cb8cf7c4788288ec565beb8b
+    m_AssetGUID: 0b77e600ae4944a3e8489f580858e8ee
     m_SubObjectName: 
     m_SubObjectType: 
     m_EditorAssetChanged: 0
-  _startPosition: {x: -2, y: 0, z: 0}
+  _startPosition: {x: 0, y: 0, z: 0}

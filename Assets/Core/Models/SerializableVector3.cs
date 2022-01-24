@@ -4,26 +4,26 @@ using Core.Interfaces;
 using Core.Interfaces.Models;
 using UnityEngine;
 
-namespace Core.Models.Character
+namespace Core.Models
 {
-    public sealed class ModelPosition : ISave, IBuildable, IModelPosition
+    public sealed class SerializableVector3 : ISave, IBuildable, ISerializableVector3
     {
-        private Vector3 _position;
+        private Vector3 _value;
         
-        public ModelPosition() { }
-        public ModelPosition(Vector3 value)
+        public SerializableVector3() { }
+        public SerializableVector3(Vector3 value)
         {
-            _position = value;
+            _value = value;
         }
 
         public void Set(Vector3 position)
         {
-            _position = position;
+            _value = position;
         }
 
         public Vector3 Get()
         {
-            return _position;
+            return _value;
         }
 
         public IDictionary<string, object> Save()
@@ -31,14 +31,14 @@ namespace Core.Models.Character
             var save = new Dictionary<string, object>
             {
                 [Consts.Type] = Consts.Position,
-                [Consts.Position] = new List<float> {_position.x, _position.y, _position.z}
+                [Consts.Position] = new List<float> {_value.x, _value.y, _value.z}
             };
             return save;
         }
 
         public object BuildItem(IDictionary<string, object> rawBuildData)
         {
-            _position = rawBuildData.GetVector3(Consts.Position);
+            _value = rawBuildData.GetVector3(Consts.Position);
             return this;
         }
     }

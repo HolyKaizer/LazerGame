@@ -21,9 +21,9 @@ MonoBehaviour:
   - {fileID: 11400000, guid: e0b4b3c6f7dbf5449a78016298ad089d, type: 2}
   _locationCharacters:
   - {fileID: 11400000, guid: 515214ae6df81124c962efe4ca94b818, type: 2}
+  - {fileID: 11400000, guid: 518d7e476287b4051ac5939bd12d907d, type: 2}
   _addressablePrefab:
     m_AssetGUID: cb2148e90941845daa0d5ddd61d3875c
     m_SubObjectName: 
     m_SubObjectType: 
     m_EditorAssetChanged: 0
-  _locationTrajectoryConfig: {fileID: 0}

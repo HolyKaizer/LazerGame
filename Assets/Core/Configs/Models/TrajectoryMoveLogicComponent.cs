@@ -9,15 +9,13 @@ namespace Core.Configs.Models
     public sealed class TrajectoryMoveLogicComponent : BaseLogicComponent, ITrajectoryMoveLogicComponent
     {
         public override string Id => Consts.MoveComponent;
-        
+        public override string LogicId => Consts.MoveProcessor;
+
         public float MoveSpeed => _moveSpeed;
-        public float RotationSpeed => _rotationSpeed;
         public ILocationTrajectoryConfig Trajectory => _trajectory;
         
         [MinValue(0)]
         [SerializeField] private float _moveSpeed;
-        [MinValue(0)]
-        [SerializeField] private float _rotationSpeed;
         [Space]
         [SerializeField] private LocationTrajectoryConfig _trajectory;
 
