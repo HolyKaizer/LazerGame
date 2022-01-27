@@ -18,12 +18,12 @@ namespace Core.Models
             return locationObjectsData;
         }
 
-        public static void AddModelsToCollection<TModel>(IDictionary<string, TModel> collection, UserData userData, IEnumerable<ITypedConfig> locationObjectConfigs, IDictionary<string, object> rawSave) where  TModel : IModel
+        public static void AddModelsToCollection<TModel>(IDictionary<string, TModel> collection, UserData userData, IEnumerable<ITypedConfig> locationObjectConfigs, IDictionary<string, object> rawSave = null) where  TModel : IModel
         {
             foreach (var config in locationObjectConfigs)
             {
                 var rawData = rawSave?.TryGetNode(config.Id);
-                var model = rawData?.Count > 0
+                var model = rawData is { Count: > 0 }
                     ? ModelFactoryManager.Factory.Build<TModel>(config.Type, userData, config, rawData)
                     : ModelFactoryManager.Factory.Build<TModel>(config.Type, userData, config);
                 

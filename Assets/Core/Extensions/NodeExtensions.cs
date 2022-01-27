@@ -10,7 +10,7 @@ namespace Core.Extensions
 
             if (objs[index] is T tV) return tV;
 
-            CustomLogger.LogAssertion($"Object array Length={objs.Length} doesn't contains {objs[index]} item; Expect {typeof(T)} item type");
+            CustomLogger.LogAssertion($"Object array Length={objs.Length} doesn't contains {objs[index]} item at {index} index; Expect {typeof(T)} item type");
             return default;
         }
         

@@ -23,3 +23,4 @@ MonoBehaviour:
     m_SubObjectType: 
     m_EditorAssetChanged: 0
   _startPosition: {x: 0, y: 0, z: 0}
+  _laserConfig: {fileID: 11400000, guid: 379ec93b3496548d7a622fdac200bc49, type: 2}

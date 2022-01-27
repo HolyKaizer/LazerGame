@@ -2,6 +2,7 @@ using UnityEditor;
 
 namespace Core.Input
 {
+#if UNITY_EDITOR
     public class TargetTab
     {
         public string Label { get; }
@@ -13,4 +14,5 @@ namespace Core.Input
             TargetPlatform = targetPlatform;
         }
     }
+#endif
 }

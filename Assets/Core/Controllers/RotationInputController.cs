@@ -7,16 +7,13 @@ namespace Core.Controllers
 {
     internal class RotationInputController : BaseController
     {
-        
-        private readonly ICharacterContainer _container;
-        private readonly ISerializableVector3 _rotation;
+        private readonly ISerializableVector3 _laserRotation;
         private readonly IInputViewModel _inputViewModel;
         
-        public RotationInputController(IMain main, ICharacterContainer container, ICharacterModel model)
+        public RotationInputController(IMain main, ICharacterModel model)
         {
-            _container = container;
             _inputViewModel = main.InputViewModel;
-            _rotation = model.Storage.GetOrCreate<ISerializableVector3>(Consts.Rotation, Vector3.zero);
+            _laserRotation = model.Storage.Get<ILaserModel>(Consts.Laser).LaserRotation;
         }
 
         protected override void OnInit()
@@ -36,8 +33,8 @@ namespace Core.Controllers
 
         private void OnRotationInput(Vector2 direction)
         {
-            _rotation.Set(direction);
-             }
+            _laserRotation.Set(direction);
+        }
 
         protected override void OnDispose()
         {

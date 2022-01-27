@@ -8,6 +8,7 @@ namespace Core.Models
 {
     public abstract class BaseModel<TConfig> : IModel where TConfig : IConfig
     {
+        protected abstract bool IsSerializable { get; }
         public string Id { get; }
         protected TConfig Config { get; }
 
@@ -16,8 +17,13 @@ namespace Core.Models
             Id = id;
             Config = config;
         }
-        
-        public abstract IDictionary<string, object> Save(IDictionary<string, object> rawData);
+
+        public IDictionary<string, object> Save(IDictionary<string, object> rawData)
+        {
+            return IsSerializable ? OnSave(rawData) : EmptyRaw.Default;
+        }
+
+        protected abstract IDictionary<string, object> OnSave(IDictionary<string, object> rawData);
 
         public T GetConfig<T>() where T : IConfig
         {

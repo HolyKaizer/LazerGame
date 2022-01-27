@@ -8,5 +8,7 @@ namespace Core.Models
         public SimpleLocationObject(UserData userData, ILocationObjectConfig config) : base(config.Id, config)
         {
         }
+
+        protected override bool IsSerializable => false;
     }
 }

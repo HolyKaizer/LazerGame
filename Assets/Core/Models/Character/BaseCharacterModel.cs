@@ -8,6 +8,7 @@ namespace Core.Models.Character
 {
     public abstract class BaseCharacterModel<TConfig> : BaseModel<TConfig>, ICharacterModel where TConfig : ICharacterConfig
     {
+        protected override bool IsSerializable => true;
         private readonly IUserData _userData;
         public ICharacterStorage Storage { get; }
         
@@ -61,17 +62,17 @@ namespace Core.Models.Character
             _componentProcessors.Clear();
         }
 
-        public override IDictionary<string, object> Save(IDictionary<string, object> rawData)
+        protected override IDictionary<string, object> OnSave(IDictionary<string, object> rawData)
         {
             foreach (var processor in _componentProcessors.Values) 
                 processor.ConsolidateData();
 
             IDictionary<string, object> modelData = new Dictionary<string, object> {[Consts.Storage] = Storage.Save()};
-            modelData = OnSave(modelData);
+            modelData = CharacterSave(modelData);
             rawData[Id] = modelData;
             return rawData;
         }
 
-        protected abstract IDictionary<string, object> OnSave(IDictionary<string, object> rawData);
+        protected abstract IDictionary<string, object> CharacterSave(IDictionary<string, object> rawData);
     }
 }

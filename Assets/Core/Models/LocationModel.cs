@@ -7,8 +7,10 @@ using Core.Structs;
 
 namespace Core.Models
 {
-    public class LocationModel : BaseModel<ILocationConfig>, ILocationModel 
+    public class LocationModel : BaseModel<ILocationConfig>, ILocationModel
     {
+        protected override bool IsSerializable => true;
+
         public LocationState CurrentState { get; private set; }
         public bool IsLoadingCompleted { get; private set;}
         public float CurLoadingProgress { get; private set; }
@@ -23,8 +25,8 @@ namespace Core.Models
             var charactersConfigs = config.GetLocationCharactersConfigs();
             _locationCharacters = new Dictionary<string, ICharacterModel>(charactersConfigs.Count);
 
-            ModelCollectionHelper.AddModelsToCollection(_locationObjects, userData, locationObjectConfigs, rawSaves.TryGetNode(Consts.LocationObjects));
-            ModelCollectionHelper.AddModelsToCollection(_locationCharacters, userData, charactersConfigs, rawSaves.TryGetNode(Consts.Characters));
+            ModelCollectionHelper.AddModelsToCollection(_locationObjects, userData, locationObjectConfigs, rawSaves?.TryGetNode(Consts.LocationObjects));
+            ModelCollectionHelper.AddModelsToCollection(_locationCharacters, userData, charactersConfigs, rawSaves?.TryGetNode(Consts.Characters));
         }
 
         public IEnumerable<ILocationObjectModel> GetLocationObjects()
@@ -47,7 +49,7 @@ namespace Core.Models
             CurLoadingProgress = value;
         }
         
-        public override IDictionary<string, object> Save(IDictionary<string, object> rawData)
+        protected override IDictionary<string, object> OnSave(IDictionary<string, object> rawData)
         {
             var data = new Dictionary<string, object>(1)
             {

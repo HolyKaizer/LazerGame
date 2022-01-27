@@ -7,11 +7,13 @@ namespace Core.Models
 {
     public sealed class SceneModel : BaseModel<ISceneConfig>, ISceneModel
     {
+        protected override bool IsSerializable => false;
+
         public SceneModel(UserData userData, ISceneConfig config) : base(config.Id, config)
         {
         }
 
-        public override IDictionary<string, object> Save(IDictionary<string, object> rawData) => EmptyRaw.Default;
+        protected override IDictionary<string, object> OnSave(IDictionary<string, object> rawData) => EmptyRaw.Default;
 
         public void InvokeStartLogic(IMain main)
         {

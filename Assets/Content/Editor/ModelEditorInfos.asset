@@ -19,6 +19,7 @@ MonoBehaviour:
   - main_scene
   - player_character
   - test_character
+  - laser
   _tags:
   - has_controller
   - start

@@ -60,12 +60,11 @@ namespace Core.Models.Character
             OnFixedUpdate(fixedDt);
         }
         
-        protected abstract void OnDispose();
         protected abstract void OnInit();
-
         protected virtual void OnUpdate(float dt) {}
-        protected virtual void OnPause() {}
-
         protected virtual void OnFixedUpdate(float fixedDt){}
+        protected abstract void OnDispose();
+
+        protected virtual void OnPause() {}
     }
 }

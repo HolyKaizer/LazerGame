@@ -9,7 +9,7 @@ namespace Core.Models.Character
         {
         }
 
-        protected override IDictionary<string, object> OnSave(IDictionary<string, object> rawData)
+        protected override IDictionary<string, object> CharacterSave(IDictionary<string, object> rawData)
         {
             return rawData;
         }

@@ -33,6 +33,10 @@ namespace Core.Extensions
         public const string PhysicsSystem = "physics_system";
         public const string Value = "value";
         public const string Rotation = "rotation";
+        public const string LaserRotation = "laser_rotation";
+        public const string Laser = "laser";
+        public const string Enemy = "enemy";
+        public const string Walls = "walls";
         public const string RotationInputProcessor = "rotation_input_processor";
     }
 }

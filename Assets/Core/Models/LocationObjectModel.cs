@@ -20,7 +20,7 @@ namespace Core.Models
             }
         }
 
-        public override IDictionary<string, object> Save(IDictionary<string, object> rawData)
+        protected override IDictionary<string, object> OnSave(IDictionary<string, object> rawData)
         {
             var data = new Dictionary<string, object>(1)
             {

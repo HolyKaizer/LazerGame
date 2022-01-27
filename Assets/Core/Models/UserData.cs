@@ -9,10 +9,11 @@ using Core.Interfaces.Systems;
 namespace Core.Models
 {
     public sealed class UserData : BaseModel<IMainConfig>, IUserData
-    {        
+    {
         public event Action<IModel> ModelAdded;
         public IUpdatableSystem UpdateSystem { get; }
         public IFixedUpdateSystem PhysicsSystem { get; }
+        protected override bool IsSerializable => false;
 
         private readonly IDictionary<string, IModel> _models = new Dictionary<string, IModel>();
 
@@ -23,16 +24,24 @@ namespace Core.Models
             
             foreach (var startConfig in config.GetStartConfigs())
             {
-                var rawData = rawSaveData.TryGetNode(startConfig.Id);
-                var model = rawData.Count > 0
-                    ? ModelFactoryManager.Factory.Build<IModel>(startConfig.Type, this, startConfig, rawData)
-                    : ModelFactoryManager.Factory.Build<IModel>(startConfig.Type, this, startConfig);
+                IModel model;
+                if (rawSaveData != null)
+                {
+                    var rawData = rawSaveData.TryGetNode(startConfig.Id);
+                    model = rawData.Count > 0 
+                        ? ModelFactoryManager.Factory.Build<IModel>(startConfig.Type, this, startConfig, rawData)
+                        : ModelFactoryManager.Factory.Build<IModel>(startConfig.Type, this, startConfig);
+                }
+                else
+                {
+                    model = ModelFactoryManager.Factory.Build<IModel>(startConfig.Type, this, startConfig);
+                }
 
                 AddModel(model);
             }
         }
-
-        public override IDictionary<string, object> Save(IDictionary<string, object> rawData)
+        
+        protected override IDictionary<string, object> OnSave(IDictionary<string, object> rawData)
         {
             foreach (var model in _models.Values)
             {

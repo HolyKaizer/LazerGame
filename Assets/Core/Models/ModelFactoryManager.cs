@@ -51,7 +51,7 @@ namespace Core.Models
             Factory.AddVariantFunc<IModel>(Consts.Location, objects => new LocationModel(objects.GetValue<UserData>(0), objects.GetValue<ILocationConfig>(1), objects.TryGetNode(2)));
            
             Factory.AddVariantFunc<ICharacterModel>(Consts.Character, objects => new Character.Character(objects.GetValue<UserData>(0), objects.GetValue<ICharacterConfig>(1), objects.TryGetNode(2)));
-            Factory.AddVariantFunc<ICharacterModel>(Consts.Player, objects => new Character.Character(objects.GetValue<UserData>(0), objects.GetValue<ICharacterConfig>(1), objects.TryGetNode(2)));
+            Factory.AddVariantFunc<ICharacterModel>(Consts.Player, objects => new Player(objects.GetValue<UserData>(0), objects.GetValue<IPlayerConfig>(1), objects.TryGetNode(2)));
 
             Factory.AddVariantFunc<ILocationObjectModel>(Consts.StringEmpty, objects => new SimpleLocationObject(objects.GetValue<UserData>(0), objects.GetValue<ILocationObjectConfig>(1)));
             Factory.AddVariantFunc<ILocationObjectModel>(Consts.Simple, objects => new SimpleLocationObject(objects.GetValue<UserData>(0), objects.GetValue<ILocationObjectConfig>(1)));

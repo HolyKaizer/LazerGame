@@ -7,19 +7,19 @@ using UnityEngine;
 
 namespace Core.Controllers
 {
-    internal class PlayerController : BaseContainerLoaderController<ICharacterContainer>, IUpdatable
+    internal sealed class PlayerController : BaseContainerLoaderController<IPlayerContainer>, IUpdatable
     {
         private static readonly int IsMoving = Animator.StringToHash("IsMoving");
         private static readonly int RightRotationId = Animator.StringToHash("RightRotationNormalized");
 
         private readonly ICharacterModel _model;
-        private RotationInputController _rotationInputController;
         
         private readonly ISerializableVector3 _position;
         private readonly ISerializableVector3 _rotation;
-
-        private Vector3 _lastPosition;
-
+        
+        private RotationInputController _rotationInputController;
+        private LaserController _laserController;
+        
         public PlayerController(IMain main, IRootContainerHolder holder, ICharacterModel model) : base(main, holder.GetContainerRoot(model.Id), model.GetConfig<IAddressablesPrefabConfig>())
         {
             _model = model;
@@ -30,15 +30,17 @@ namespace Core.Controllers
         protected override void OnContainerLoaded()
         {
             Container.MoveTransform.localPosition = _position.Get();
-
-            _rotationInputController = new RotationInputController(_main, Container, _model);
+            
+            _laserController = new LaserController(_model, _model.Storage.Get<ILaserModel>(Consts.Laser), Container.LaserContainer);
+            _rotationInputController = new RotationInputController(_main, _model);
+            
             _rotationInputController.Init();
+            _laserController.Init();
         }
         
         public void Update(float dt)
         {
             if (!IsContainerLoaded || !_isInited) return;
-            _lastPosition = _position.Get();
             
             Container.Animator.SetBool(IsMoving, true);
             Container.MoveTransform.localPosition = _position.Get();
@@ -51,15 +53,17 @@ namespace Core.Controllers
             {
                 scale.x *= -1f;
             }
-            
             Container.MoveTransform.localScale = scale;
             Container.Animator.SetFloat(RightRotationId, Mathf.Abs(rightRotationNormalized));
+
+            _laserController.Update(dt);
         }
         
         protected override void OnDispose()
         {
             base.OnDispose();
             
+            _laserController.Dispose();
             _rotationInputController?.Dispose();
         }
     }
