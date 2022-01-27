@@ -31,7 +31,7 @@ namespace Core.Controllers
         {
             Container.MoveTransform.localPosition = _position.Get();
             
-            _laserController = new LaserController(_model, _model.Storage.Get<ILaserModel>(Consts.Laser), Container.LaserContainer);
+            _laserController = new LaserController(_model, Container.LaserContainer);
             _rotationInputController = new RotationInputController(_main, _model);
             
             _rotationInputController.Init();

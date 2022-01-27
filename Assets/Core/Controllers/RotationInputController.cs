@@ -13,7 +13,7 @@ namespace Core.Controllers
         public RotationInputController(IMain main, ICharacterModel model)
         {
             _inputViewModel = main.InputViewModel;
-            _laserRotation = model.Storage.Get<ILaserModel>(Consts.Laser).LaserRotation;
+            _laserRotation = model.Storage.Get<ISerializableVector3>(Consts.LaserRotation);
         }
 
         protected override void OnInit()

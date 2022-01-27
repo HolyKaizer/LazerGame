@@ -4,9 +4,10 @@ using UnityEngine;
 
 namespace Core.Configs.Models
 {
-    [CreateAssetMenu(menuName = "EndlessSoftware/LaserConfig", fileName = "LaserConfig")]
-    public sealed class LaserConfig : TypedConfig, ILaserConfig {
-        public override string Type => Consts.Laser;
+    [CreateAssetMenu(menuName = "EndlessSoftware/Components/LaserComponent", fileName = "LaserComponent")]
+    public sealed class LaserComponent : BaseComponent, ILaserComponent
+    {
+        public override string Id => Consts.Laser;
         [SerializeField] private float _rotationSpeed;
         [SerializeField] private float _laserDistance;
         [SerializeField] private Vector3 _playerOffset;

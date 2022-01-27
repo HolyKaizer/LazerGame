@@ -12,9 +12,9 @@ namespace Core.Configs.Models
     {
         public AssetReference AddressablesPrefab => _addressablePrefab;
         public Vector3 StartPosition => _startPosition;
-        public IReadOnlyCollection<ILogicComponent> GetAllComponents() => _componentsDict.Values;
+        public IReadOnlyCollection<IModelComponent> GetAllComponents() => _componentsDict.Values;
 
-        public T GetComponent<T>(string id) where T : ILogicComponent
+        public T GetComponent<T>(string id) where T : IModelComponent
         {
             if (_componentsDict.TryGetValue(id, out var component))
             {
@@ -33,17 +33,17 @@ namespace Core.Configs.Models
         
         [Space]
         [Title("Character Components")]
-        [SerializeField] private List<BaseLogicComponent> _components;
+        [SerializeField] private List<BaseComponent> _components;
         [Space]
         [Title("Character Prefab")]
         [SerializeField] private AssetReference _addressablePrefab;
         [Title("Initial Location Position")]
         [SerializeField] private Vector3 _startPosition;
         
-        private Dictionary<string,ILogicComponent> _componentsDict;
+        private Dictionary<string,IModelComponent> _componentsDict;
         public void OnAfterDeserialize()
         {
-            _componentsDict = new Dictionary<string, ILogicComponent>(_components.Count);
+            _componentsDict = new Dictionary<string, IModelComponent>(_components.Count);
             foreach (var component in _components)
             {
                 _componentsDict[component.Id] = component;

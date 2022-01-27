@@ -5,6 +5,5 @@ namespace Core.Interfaces
     public interface IPlayerModel : IModel
     {
         public ICharacterModel Character { get; }
-        public ILaserModel Laser { get; }
     }
 }

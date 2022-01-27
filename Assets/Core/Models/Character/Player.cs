@@ -8,13 +8,12 @@ namespace Core.Models.Character
     {
         public Player(IUserData userData, IPlayerConfig config, IDictionary<string, object> rawSave = null) : base(userData, config, rawSave)
         {
-            var laser = new LaserModel(Consts.Laser, config.LaserConfig);
-            Storage.Set(Consts.Laser, laser);
+            Storage.Set(Consts.LaserRotation, new SerializableVector3());
         }
 
         protected override IDictionary<string, object> CharacterSave(IDictionary<string, object> rawData)
         {
-            return Storage.Get<ILaserModel>(Consts.Laser).Save(rawData);
+            return EmptyRaw.Default;
         }
     }
 }

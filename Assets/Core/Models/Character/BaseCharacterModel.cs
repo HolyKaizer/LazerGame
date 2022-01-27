@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using Core.Extensions;
 using Core.Interfaces;
 using Core.Interfaces.Configs;
@@ -22,8 +23,8 @@ namespace Core.Models.Character
                 : new CharacterStorage(Id);
             var components = config.GetAllComponents();
             _componentProcessors = new Dictionary<ILogicComponent, ILogicProcessor>(components.Count);
-
-            CreateProcessors(components);
+            
+            CreateProcessors(components.OfType<ILogicComponent>());
         }
 
         private void CreateProcessors(IEnumerable<ILogicComponent> components)

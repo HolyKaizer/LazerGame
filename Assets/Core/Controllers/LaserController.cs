@@ -7,17 +7,17 @@ namespace Core.Controllers
 {
     internal sealed class LaserController : BaseController, IUpdatable
     {
-        private readonly ILaserModel _model;
         private readonly ILaserContainer _container;
+        private readonly ILaserComponent _component;
+        private readonly ISerializableVector3 _laserRotation;
         private readonly ISerializableVector3 _playerPosition;
-        private readonly ILaserConfig _config;
-        
-        public LaserController(ICharacterModel player, ILaserModel model, ILaserContainer container)
+
+        public LaserController(ICharacterModel player, ILaserContainer container)
         {
-            _model = model;
+            _laserRotation = player.Storage.Get<ISerializableVector3>(Consts.LaserRotation);
             _container = container;
             _playerPosition = player.Storage.Get<ISerializableVector3>(Consts.Position);
-            _config = model.GetConfig<ILaserConfig>();
+            _component = player.GetConfig<IPlayerConfig>().GetComponent<ILaserComponent>(Consts.Laser);
         }
 
         protected override void OnInit()
@@ -27,7 +27,7 @@ namespace Core.Controllers
         public void Update(float dt)
         {
             if(!_isInited) return;
-            _container.DrawLineInDirection(_playerPosition.Get() + _config.PlayerOffset,_model.LaserRotation.Get(), _config.LaserDistance);
+            _container.DrawLineInDirection(_playerPosition.Get() + _component.PlayerOffset,_laserRotation.Get(), _component.LaserDistance);
         }
 
         protected override void OnDispose()
