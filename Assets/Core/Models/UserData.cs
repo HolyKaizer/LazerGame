@@ -13,7 +13,7 @@ namespace Core.Models
         public event Action<IModel> ModelAdded;
         public IUpdatableSystem UpdateSystem { get; }
         public IFixedUpdateSystem PhysicsSystem { get; }
-        protected override bool IsSerializable => false;
+        protected override bool IsSerializable => true;
 
         private readonly IDictionary<string, IModel> _models = new Dictionary<string, IModel>();
 

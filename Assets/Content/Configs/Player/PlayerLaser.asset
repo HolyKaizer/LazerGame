@@ -12,6 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 498ace9ad1144c3b99e2e4aa4bb733a0, type: 3}
   m_Name: PlayerLaser
   m_EditorClassIdentifier: 
-  _rotationSpeed: 0
-  _laserDistance: 0
-  _playerOffset: {x: 0, y: 0, z: 0}
+  _rotationSpeed: 5
+  _laserDistance: 10
+  _playerOffset: {x: -0.2, y: -1.2, z: 0}
+  _damagePerHit: 10
+  _hitPeriod: 0.5
+  _isPeriodicHit: 1

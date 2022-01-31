@@ -2,6 +2,7 @@ using Core.Extensions;
 using Core.Factory;
 using Core.Interfaces;
 using Core.Interfaces.Controllers;
+using Core.Interfaces.Controllers.Containers;
 using Core.Interfaces.Models;
 
 namespace Core.Controllers
@@ -22,6 +23,8 @@ namespace Core.Controllers
             Factory.AddVariantFunc<IController>(Consts.LocationObject, objects => new LocationObjectController(objects.GetValue<IMain>(0), objects.GetValue<IRootContainerHolder>(1), objects.GetValue<ILocationObjectModel>(2)));
             Factory.AddVariantFunc<IController>(Consts.Character, objects => new CharacterController(objects.GetValue<IMain>(0), objects.GetValue<IRootContainerHolder>(1), objects.GetValue<ICharacterModel>(2)));
             Factory.AddVariantFunc<IController>(Consts.Player, objects => new PlayerController(objects.GetValue<IMain>(0), objects.GetValue<IRootContainerHolder>(1), objects.GetValue<ICharacterModel>(2)));
+            Factory.AddVariantFunc<IController>(Consts.HitHandler, objects => new HitHandlerController(objects.GetValue<IMain>(0), objects.GetValue<IContainer>(1), objects.GetValue<ICharacterModel>(2)));
+            Factory.AddVariantFunc<IController>(Consts.Health, objects => new HealthController(objects.GetValue<IMain>(0), objects.GetValue<IContainer>(1), objects.GetValue<ICharacterModel>(2)));
         }
     }
 }

@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Core.Interfaces.Configs
 {
-    public interface ILaserComponent : IModelComponent
+    public interface ILaserComponent : IHitProducerComponent
     {
         float RotationSpeed { get; }
         float LaserDistance { get; }

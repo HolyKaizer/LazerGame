@@ -61,7 +61,7 @@ namespace Core.Models.Character
 #endif
                 return default;
             }
-
+            
             if (!(value is T tValue))
             {
 #if LG_DEVELOP

@@ -8,6 +8,7 @@ namespace Core.Interfaces
     {
         Vector3 StartPosition { get; }
         T GetComponent<T>(string id) where T : IModelComponent;
+        bool TryGetComponent<T>(string id, out T component) where T : IModelComponent;
         IReadOnlyCollection<IModelComponent> GetAllComponents();
     }
 }

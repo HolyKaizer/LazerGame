@@ -4,6 +4,5 @@ namespace Core.Interfaces
 {
     public interface IPhysicsLogicProcessor : ILogicProcessor, IFixedUpdate
     {
-        
     }
 }

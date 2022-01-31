@@ -3,6 +3,7 @@ namespace Core.Extensions
     public static class Consts
     {
         public const string Player = "player";
+        public const string PlayerCharacter = "player_character";
         public const string StringEmpty = "";
         public const string UserDataId = "user_data_id";
         public const string Start = "start";
@@ -34,9 +35,20 @@ namespace Core.Extensions
         public const string Value = "value";
         public const string Rotation = "rotation";
         public const string LaserRotation = "laser_rotation";
+        public const string HitProducerComponent = "hit_producer_component";
+        public const string HitHandlerComponent = "hit_handler_component";
+        public const string HitHandler = "hit_handler";
+        public const string HealthComponent = "health_component";
+        public const string HealthProcessor = "health_processor";
+        public const string Health = "health";
         public const string Laser = "laser";
         public const string Enemy = "enemy";
         public const string Walls = "walls";
+        public const string LastHitTs = "last_hit_ts";
+        public const string WasHit = "was_hit";
+        public const string IsDead = "is_dead";
+        public const string Vector3 = "vector_3";
+        public const string EnemyHitHandler = "enemy_hit_handler";
         public const string RotationInputProcessor = "rotation_input_processor";
     }
 }

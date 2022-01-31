@@ -26,17 +26,21 @@ namespace Core.Models
         private static void RegisterLogicProcessors()
         {
             Factory.AddVariantFunc<ILogicProcessor>(Consts.MoveProcessor, objects => new TrajectoryMoveLogicProcessor(objects.GetValue<ICharacterModel>(0)));
+            Factory.AddVariantFunc<ILogicProcessor>(Consts.HealthProcessor, objects => new HealthProcessor(objects.GetValue<ICharacterModel>(0)));
+            Factory.AddVariantFunc<ILogicProcessor>(Consts.EnemyHitHandler, objects => new EnemyHealthHitProcessor(objects.GetValue<ICharacterModel>(0)));
         }
 
         private static void RegisterBuildableItems()
         {
-            Factory.AddVariantFunc<IBuildable>(Consts.Position, objects => new SerializableVector3().BuildItem(objects.GetNode(0)));
+            Factory.AddVariantFunc<IBuildable>(Consts.Vector3, objects => new SerializableVector3().BuildItem(objects.GetNode(0)));
         }
 
         private static void RegisterSimpleTypes()
         {
             Factory.AddVariantFunc<ISerializableVector3>(objects => new SerializableVector3(objects.GetValue<Vector3>(0)));
             Factory.AddVariantFunc<int>(objects => objects.GetInt(0));
+            Factory.AddVariantFunc<float>(objects => objects.GetValue<float>(0));
+            Factory.AddVariantFunc<bool>(objects => objects.GetValue<bool>(0));
         }
         
         private static void RegisterSceneLogics()

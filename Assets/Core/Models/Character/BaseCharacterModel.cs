@@ -7,7 +7,7 @@ using Core.Interfaces.Models;
 
 namespace Core.Models.Character
 {
-    public abstract class BaseCharacterModel<TConfig> : BaseModel<TConfig>, ICharacterModel where TConfig : ICharacterConfig
+    internal abstract class BaseCharacterModel<TConfig> : BaseModel<TConfig>, ICharacterModel where TConfig : ICharacterConfig
     {
         protected override bool IsSerializable => true;
         private readonly IUserData _userData;
@@ -42,8 +42,29 @@ namespace Core.Models.Character
                 {
                     _userData.UpdateSystem.Add(processor);
                 }
-                processor.Init();
             }
+
+            foreach (var processor in _componentProcessors.Values)
+            {
+                processor.Init();   
+            }
+        }
+
+        public T GetProcessor<T>(ILogicComponent component) where T : ILogicProcessor
+        {
+            if (_componentProcessors.TryGetValue(component, out var processor))
+            {
+                if (processor is T tProcessor) 
+                    return tProcessor;
+#if LG_DEVELOP
+                CustomLogger.LogAssertion($"Model \"{Id}\" doesnt have process \"{component.Id}\" of {typeof(T)} type");
+#endif
+                return default;
+            }
+#if LG_DEVELOP
+            CustomLogger.LogAssertion($"Cannot find {typeof(T)} process at \"{Id}\" model");
+#endif
+            return default;
         }
 
         public void DestroyCharacter()

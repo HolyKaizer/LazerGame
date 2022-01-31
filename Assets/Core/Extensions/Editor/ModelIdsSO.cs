@@ -7,8 +7,10 @@ namespace Core.Extensions.Editor
     public sealed class ModelIdsSO : ScriptableObject
     {
         [SerializeField] private List<string> _ids;
+        [SerializeField] private List<string> _logicIds;
         [SerializeField] private List<string> _tags;
         public IEnumerable<string> ModelIds => _ids;
+        public IEnumerable<string> LogicIds => _logicIds;
         public IEnumerable<string> Tags => _tags;
     }
 }

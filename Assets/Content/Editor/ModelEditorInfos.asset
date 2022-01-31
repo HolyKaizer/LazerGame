@@ -20,6 +20,8 @@ MonoBehaviour:
   - player_character
   - test_character
   - laser
+  _logicIds:
+  - enemy_hit_handler
   _tags:
   - has_controller
   - start

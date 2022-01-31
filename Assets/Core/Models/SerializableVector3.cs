@@ -30,15 +30,15 @@ namespace Core.Models
         {
             var save = new Dictionary<string, object>
             {
-                [Consts.Type] = Consts.Position,
-                [Consts.Position] = new List<float> {_value.x, _value.y, _value.z}
+                [Consts.Type] = Consts.Vector3,
+                [Consts.Value] = new List<float> {_value.x, _value.y, _value.z}
             };
             return save;
         }
 
         public object BuildItem(IDictionary<string, object> rawBuildData)
         {
-            _value = rawBuildData.GetVector3(Consts.Position);
+            _value = rawBuildData.GetVector3(Consts.Value);
             return this;
         }
     }

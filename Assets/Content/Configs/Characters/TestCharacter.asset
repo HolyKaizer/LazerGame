@@ -17,6 +17,8 @@ MonoBehaviour:
   - has_controller
   _components:
   - {fileID: 11400000, guid: 647ad42cce05dad43b6531c42cb91428, type: 2}
+  - {fileID: 11400000, guid: 94377c39f18e843d5bf172ab34577a1a, type: 2}
+  - {fileID: 11400000, guid: 64a7695ccd70840c8b83a4f87e9a4091, type: 2}
   _addressablePrefab:
     m_AssetGUID: 9ad7acb5cb8cf7c4788288ec565beb8b
     m_SubObjectName: 

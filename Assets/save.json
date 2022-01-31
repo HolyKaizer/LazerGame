@@ -1,3 +1,64 @@
 {
-   
+   "test_location" : {
+      "current_state" : 0,
+      "location_objects" : {
+         
+      },
+      "characters" : {
+         "test_character" : {
+            "storage" : {
+               "position" : {
+                  "type" : "vector_3",
+                  "value" : [
+                     -2.20194,
+                     3.994249,
+                     0
+                  ]
+               },
+               "rotation" : {
+                  "type" : "vector_3",
+                  "value" : [
+                     0.9875298,
+                     -0.1574323,
+                     0
+                  ]
+               },
+               "cur_point_index" : 5,
+               "health" : 0,
+               "last_hit_ts" : 16.70155,
+               "was_hit" : true,
+               "is_dead" : true
+            }
+         },
+         "player_character" : {
+            "storage" : {
+               "position" : {
+                  "type" : "vector_3",
+                  "value" : [
+                     1.887769,
+                     8.639236,
+                     0
+                  ]
+               },
+               "rotation" : {
+                  "type" : "vector_3",
+                  "value" : [
+                     -0.9999149,
+                     0.01304245,
+                     0
+                  ]
+               },
+               "cur_point_index" : 3,
+               "laser_rotation" : {
+                  "type" : "vector_3",
+                  "value" : [
+                     0,
+                     0,
+                     0
+                  ]
+               }
+            }
+         }
+      }
+   }
 }

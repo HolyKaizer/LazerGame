@@ -42,23 +42,29 @@ namespace Core.Controllers
         {
             if (!IsContainerLoaded || !_isInited) return;
             
-            Container.Animator.SetBool(IsMoving, true);
             Container.MoveTransform.localPosition = _position.Get();
             
+            UpdateRotation();
+
+            _laserController.Update(dt);
+        }
+
+        private void UpdateRotation()
+        {
             var currentHalf = UnityHelperExtensions.DirectionToIndex(_rotation.Get(), 8);
             var rightRotationNormalized = (currentHalf - 4) / 4f;
             var scale = Container.MoveTransform.localScale;
-            
+
             if (!Mathf.Approximately(Mathf.Sign(scale.x), Mathf.Sign(rightRotationNormalized)))
             {
                 scale.x *= -1f;
             }
+
+            Container.Animator.SetBool(IsMoving, true);
             Container.MoveTransform.localScale = scale;
             Container.Animator.SetFloat(RightRotationId, Mathf.Abs(rightRotationNormalized));
-
-            _laserController.Update(dt);
         }
-        
+
         protected override void OnDispose()
         {
             base.OnDispose();

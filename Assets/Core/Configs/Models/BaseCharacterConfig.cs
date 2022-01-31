@@ -30,7 +30,22 @@ namespace Core.Configs.Models
 #endif
             return default;
         }
-        
+
+        public bool TryGetComponent<T>(string id, out T component) where T : IModelComponent
+        {
+            if (_componentsDict.TryGetValue(id, out var rawComponent))
+            {
+                if (rawComponent is T tComponent)
+                {
+                    component = tComponent;
+                    return true;
+                }
+            }
+
+            component = default;
+            return false;
+        }
+
         [Space]
         [Title("Character Components")]
         [SerializeField] private List<BaseComponent> _components;

@@ -3,7 +3,7 @@ using Core.Interfaces;
 
 namespace Core.Models.Character 
 {
-    public class Character : BaseCharacterModel<ICharacterConfig>
+    internal class Character : BaseCharacterModel<ICharacterConfig>
     {
         public Character(IUserData userData, ICharacterConfig config, IDictionary<string, object> rawSave = null) : base(userData, config, rawSave)
         {
@@ -13,6 +13,5 @@ namespace Core.Models.Character
         {
             return rawData;
         }
-
     }
 }

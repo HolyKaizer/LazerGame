@@ -4,7 +4,7 @@ using Core.Interfaces;
 
 namespace Core.Models.Character
 {
-    public class Player : BaseCharacterModel<IPlayerConfig>
+    internal class Player : BaseCharacterModel<IPlayerConfig>
     {
         public Player(IUserData userData, IPlayerConfig config, IDictionary<string, object> rawSave = null) : base(userData, config, rawSave)
         {
@@ -13,7 +13,7 @@ namespace Core.Models.Character
 
         protected override IDictionary<string, object> CharacterSave(IDictionary<string, object> rawData)
         {
-            return EmptyRaw.Default;
+            return rawData;
         }
     }
 }
